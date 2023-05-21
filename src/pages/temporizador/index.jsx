@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Card,
-  Flex,
-  Select,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Card, Flex, Select, Text } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
 
 function Timer() {
@@ -58,11 +51,10 @@ function Timer() {
 
   return (
     <Box>
-      <Flex align="center" justify="center" mb={4}>
+      <Flex>
         <Select
           value={hours}
           onChange={(e) => setHours(parseInt(e.target.value))}
-          mr={2}
         >
           {Array.from({ length: 24 }).map((_, i) => (
             <option key={i} value={i}>{`${i} hora${
@@ -74,7 +66,6 @@ function Timer() {
         <Select
           value={minutes}
           onChange={(e) => setMinutes(parseInt(e.target.value))}
-          mr={2}
         >
           {Array.from({ length: 60 }).map((_, i) => (
             <option key={i} value={i}>{`${i} minuto${
@@ -86,7 +77,6 @@ function Timer() {
         <Select
           value={seconds}
           onChange={(e) => setSeconds(parseInt(e.target.value))}
-          mr={2}
         >
           {Array.from({ length: 60 }).map((_, i) => (
             <option key={i} value={i}>{`${i} segundo${

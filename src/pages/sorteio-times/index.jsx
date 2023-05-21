@@ -1,9 +1,8 @@
 import React from "react";
 import { SimpleGrid } from "@chakra-ui/react";
-import Link from "next/link";
 
 import Layout from "../../components/Layout";
-import BoxCard from "../../components/Card";
+import BoxCard from "../../components/BoxCard";
 
 const modalidades = [
   {
@@ -28,30 +27,21 @@ const modalidades = [
   },
 ];
 
-function OrganizarRachinha() {
+function SorteioTimes() {
   return (
-    <SimpleGrid columns={[2]} gap={4}>
+    <SimpleGrid columns={[2]} spacing={4}>
       {modalidades.map((modalidade) => (
-        <Link
-          href={{
-            pathname: "/organizar-rachinha/times",
-            query: {
-              modalidade: JSON.stringify(modalidade),
-            },
-          }}
-          key={modalidade.id}
-        >
-          <BoxCard
-            title={modalidade.nome}
-            src={modalidade.imagem}
-            rule={modalidade.regra}
-          />
-        </Link>
+        <BoxCard
+          title={modalidade.nome}
+          src={modalidade.imagem}
+          rule={modalidade.regra}
+          modality={modalidade}
+        />
       ))}
     </SimpleGrid>
   );
 }
 
-OrganizarRachinha.layout = (page) => <Layout>{page}</Layout>;
+SorteioTimes.layout = (page) => <Layout>{page}</Layout>;
 
-export default OrganizarRachinha;
+export default SorteioTimes;
