@@ -2,7 +2,7 @@ import { Badge, Box, Button, Card, CardBody, CardFooter, CardHeader, Flex, Headi
 import Layout from "../../components/Layout";
 import { MdOutlineClose, MdOutlinePersonAdd, MdOutlineSettings, MdSettings } from "react-icons/md";
 import { useState } from "react";
-import { sortTeams } from "../../utils";
+import { sortTeams } from "../../utils/sortitionTeams";
 import { useRouter } from "next/router";
 import { api } from "../../services/api";
 
