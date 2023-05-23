@@ -4,8 +4,10 @@ import NavBar from "../NavBar";
 export default function Layout({ children }) {
   return (
     <Flex h="100%" flexDirection="column">
-      <NavBar />
-      <Box padding="2">
+      <Flex position="fixed" zIndex="1" w="full">
+        <NavBar />
+      </Flex>
+      <Box padding="2" mt="6">
         {children}
       </Box>
     </Flex>

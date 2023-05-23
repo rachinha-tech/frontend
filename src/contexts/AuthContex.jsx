@@ -13,60 +13,74 @@ export function AuthProvider({ children }) {
 
   const isAuthenticated = !!user;
 
-  const signIn = async () => {
+  const signIns = async ({ login, password }) => {
     try {
-      const { url } = await api.get('/auth/redirect')
-      push(url)
+      const { data } = await api.post('/login', {
+        login: login,
+        password: password
+      })
+
+      setCookie(undefined, "rachinha.token", data.token, {
+        path: "/",
+      });
+
+      setUser({ ...user })
+
+      api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
+
     } catch (error) {
       console.log(error);
     }
   };
 
-  const callback = async () => {
-    try {
-      const { data: { token, user } } = await api.get('/auth/callback', {
-        params: {
-          ...query
-        }
-      })
+  const signIn = ({ login, password }) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { data } = await api.post('/login', {
+          login: login,
+          password: password
+        })
 
-      setCookie(undefined, "rachinha.token", token, {
-        path: "/",
-      });
+        setCookie(undefined, "rachinha.token", data.token, {
+          path: "/",
+        });
 
-      api.defaults.headers["Authorization"] = `Bearer ${token}`;
+        setUser({ ...user })
 
-      setUser(user)
+        api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
 
-      router.replace('/', undefined, { shallow: true });
-
-    } catch (error) {
-      console.log(error);
-    }
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 
   const getUser = async () => {
-    try {
-      const { data } = await api.get('/auth/user')
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { user, token } = await api.get("/user/profile");
+
+        setUser(user);
+
+        setCookie(undefined, "rachinha.token", token, {
+          path: "/",
+        });
+
+        resolve()
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
 
   useEffect(() => {
-    if (query.code && query.scope && query.prompt && query.authuser) {
-      callback()
+    const { "rachinha.token": token } = parseCookies();
+
+    if (token) {
+      getUser();
     }
-  }, [router])
-
-  // useEffect(() => {
-  //   const { "rachinha.token": token } = parseCookies();
-
-  //   if (token) {
-  //     getUser();
-  //   }
-  // }, []);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>

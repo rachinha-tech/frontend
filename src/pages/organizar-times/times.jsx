@@ -1,9 +1,10 @@
 import { Badge, Box, Button, Card, CardBody, CardFooter, CardHeader, Flex, Heading, IconButton, Input, InputGroup, InputRightElement, Stack, StackDivider, Text, VStack } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
-import { MdOutlineClose, MdOutlinePersonAdd } from "react-icons/md";
+import { MdOutlineClose, MdOutlinePersonAdd, MdOutlineSettings, MdSettings } from "react-icons/md";
 import { useState } from "react";
 import { sortTeams } from "../../utils";
 import { useRouter } from "next/router";
+import { api } from "../../services/api";
 
 function Times() {
   const [credentials, setCrendentials] = useState({})
@@ -17,6 +18,16 @@ function Times() {
       ...credentials,
       [name]: value
     })
+  }
+
+  const sortedTeams = async () => {
+    try {
+      const data = await api.post('/teams-draw', {
+
+      })
+    } catch (error) {
+
+    }
   }
 
   const addPerson = () => {
@@ -73,7 +84,11 @@ function Times() {
   }
 
   return (
-    <VStack mt="9" spacing="9">
+    <VStack mt="9" spacing="4">
+      <Flex justifyContent="space-between" alignItems="center" w="full">
+        <Badge variant="outline">{modalidade.name} - {modalidade.quantity_players} pessoas</Badge>
+        <IconButton variant="ghost" icon={<MdOutlineSettings size="24px" />} />
+      </Flex>
       <InputGroup size='md'>
         <Input
           placeholder='Pessoa'
@@ -94,7 +109,6 @@ function Times() {
 
       <Card w="full" variant="outline">
         <CardHeader>
-          <Badge variant="outline">{modalidade.nome} {modalidade.regra}</Badge>
           <Heading size='md'>Jogadores</Heading>
         </CardHeader>
 
