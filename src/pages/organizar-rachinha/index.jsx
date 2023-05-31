@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import Layout from "../../components/Layout";
+import LocalCard from "../../components/LocalCard";
 
 function OrganizarRachinha() {
   return (
@@ -19,13 +20,15 @@ function OrganizarRachinha() {
       </Flex>
 
       <InputGroup mt={2}>
-        <Input bg="white" type="tel" placeholder="Phone number" />
+        <Input bg="white" type="tel" placeholder="Digite o local..." />
         <InputRightElement bg="#2A4359" pointerEvents="none">
           <SearchIcon color="gray.300" />
         </InputRightElement>
       </InputGroup>
 
-      <Flex flexDirection="column"></Flex>
+      <Flex mt="8px" flexDirection="column">
+        <LocalCard title="ARENA BELA VISTA"/>
+      </Flex>
     </Box>
   );
 }
