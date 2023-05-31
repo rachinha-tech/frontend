@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Card,
-  Flex,
-  Select,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Card, Flex, Select, Text } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
 
 function Timer() {

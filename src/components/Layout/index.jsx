@@ -7,7 +7,7 @@ export default function Layout({ children }) {
       <Flex position="fixed" zIndex="1" w="full">
         <NavBar />
       </Flex>
-      <Box padding="2" mt="6">
+      <Box padding="2" mt="16">
         {children}
       </Box>
     </Flex>

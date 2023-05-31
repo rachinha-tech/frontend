@@ -1,10 +1,8 @@
 import { parseCookies } from "nookies";
 
 export const requireAuthenticate = async (context, cb, levelAccess = null) => {
-  const {
-    ["rachinha.token"]: token,
-    ["rachinha.level"]: level,
-  } = await parseCookies(context);
+  const { ["rachinha.token"]: token, ["rachinha.level"]: level } =
+    await parseCookies(context);
 
   if (!token) {
     return {
@@ -14,7 +12,7 @@ export const requireAuthenticate = async (context, cb, levelAccess = null) => {
       },
     };
   }
-  
+
   if (levelAccess !== level) {
     return {
       redirect: {

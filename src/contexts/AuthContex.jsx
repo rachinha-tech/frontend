@@ -9,25 +9,24 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
   const router = useRouter();
-  const { push, query } = router
+  const { push, query } = router;
 
   const isAuthenticated = !!user;
 
   const signIns = async ({ login, password }) => {
     try {
-      const { data } = await api.post('/login', {
+      const { data } = await api.post("/login", {
         login: login,
-        password: password
-      })
+        password: password,
+      });
 
       setCookie(undefined, "rachinha.token", data.token, {
         path: "/",
       });
 
-      setUser({ ...user })
+      setUser({ ...user });
 
       api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
-
     } catch (error) {
       console.log(error);
     }
@@ -36,16 +35,16 @@ export function AuthProvider({ children }) {
   const signIn = ({ login, password }) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await api.post('/login', {
+        const { data } = await api.post("/login", {
           login: login,
-          password: password
-        })
+          password: password,
+        });
 
         setCookie(undefined, "rachinha.token", data.token, {
           path: "/",
         });
 
-        setUser({ ...user })
+        setUser({ ...user });
 
         api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
 
@@ -54,7 +53,7 @@ export function AuthProvider({ children }) {
         reject(error);
       }
     });
-  }
+  };
 
   const getUser = async () => {
     return new Promise(async (resolve, reject) => {
@@ -67,7 +66,7 @@ export function AuthProvider({ children }) {
           path: "/",
         });
 
-        resolve()
+        resolve();
       } catch (error) {
         reject(error);
       }
