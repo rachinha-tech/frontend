@@ -21,7 +21,10 @@ import { AuthContext } from "../../contexts/AuthContex";
 
 const loginFormSchema = yup.object({
   login: yup.string().required("Login obrigatório"),
-  password: yup.string().required("Senha obrigatória").min(8, "No mínimo 8 caracteres"),
+  password: yup
+    .string()
+    .required("Senha obrigatória")
+    .min(8, "No mínimo 8 caracteres"),
 });
 
 function Login({ isOpen, onClose }) {
@@ -37,16 +40,16 @@ function Login({ isOpen, onClose }) {
 
   const handleLogin = async (data) => {
     try {
-      await signIn({ 
+      await signIn({
         login: data.login,
-        password: data.password
-      })
+        password: data.password,
+      });
 
-      onClose()
+      onClose();
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <>
@@ -60,23 +63,41 @@ function Login({ isOpen, onClose }) {
         <ModalOverlay />
 
         <ModalContent>
-          <ModalHeader>
-            Acessar
-          </ModalHeader>
+          <ModalHeader>Acessar</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <SimpleGrid 
-              columns={[1]} 
-              gap={9} 
+            <SimpleGrid
+              columns={[1]}
+              gap={9}
               as="form"
               onSubmit={handleSubmit(handleLogin)}
             >
-              <Input {...register('login')} size="sm" variant='flushed' placeholder='Login' />
-              <Input {...register('password')} size="sm" variant='flushed' type="password" placeholder='Senha' />
+              <Input
+                {...register("login")}
+                size="sm"
+                variant="flushed"
+                placeholder="Login"
+              />
+              <Input
+                {...register("password")}
+                size="sm"
+                variant="flushed"
+                type="password"
+                placeholder="Senha"
+              />
 
               <Flex flexDirection="column" gap={2}>
-                <Button isLoading={isSubmitting} size="sm" colorScheme="green" type="submit">Acessar</Button>
-                <Button size="sm" colorScheme="blue" type="submit">Realizar Cadastro</Button>
+                <Button
+                  isLoading={isSubmitting}
+                  size="sm"
+                  colorScheme="green"
+                  type="submit"
+                >
+                  Acessar
+                </Button>
+                <Button size="sm" colorScheme="blue" type="submit">
+                  Realizar Cadastro
+                </Button>
               </Flex>
             </SimpleGrid>
           </ModalBody>

@@ -27,32 +27,54 @@ function index() {
             Organizar times
           </Button>
         </Link>
-        {
-          isAuthenticated ? (
-            <Link href="/organizar-rachinha">
-              <Button bgColor="#2A4359" color="white" leftIcon={<MdOutlineLocationOn size="24px" />} size="lg" w="full">
-                Organizar rachinha
-              </Button>
-            </Link>
-          ) : (
-            <Button isDisabled bgColor="#2A4359" color="white" leftIcon={<MdOutlineLocationOn size="24px" />} size="lg" w="full">
+        {isAuthenticated ? (
+          <Link href="/organizar-rachinha">
+            <Button
+              bgColor="#2A4359"
+              color="white"
+              leftIcon={<MdOutlineLocationOn size="24px" />}
+              size="lg"
+              w="full"
+            >
               Organizar rachinha
             </Button>
-          )
-        }
-        {
-          isAuthenticated ? (
-            <Link href="/buscar-rachinha">
-              <Button bgColor="#2A4359" color="white" leftIcon={<MdOutlineSearch size="24px" />} size="lg" w="full">
-                Buscar rachinha
-              </Button>
-            </Link>
-          ) : (
-            <Button isDisabled bgColor="#2A4359" color="white" leftIcon={<MdOutlineSearch size="24px" />} size="lg" w="full">
+          </Link>
+        ) : (
+          <Button
+            isDisabled
+            bgColor="#2A4359"
+            color="white"
+            leftIcon={<MdOutlineLocationOn size="24px" />}
+            size="lg"
+            w="full"
+          >
+            Organizar rachinha
+          </Button>
+        )}
+        {isAuthenticated ? (
+          <Link href="/buscar-rachinha">
+            <Button
+              bgColor="#2A4359"
+              color="white"
+              leftIcon={<MdOutlineSearch size="24px" />}
+              size="lg"
+              w="full"
+            >
               Buscar rachinha
             </Button>
-          )
-        }
+          </Link>
+        ) : (
+          <Button
+            isDisabled
+            bgColor="#2A4359"
+            color="white"
+            leftIcon={<MdOutlineSearch size="24px" />}
+            size="lg"
+            w="full"
+          >
+            Buscar rachinha
+          </Button>
+        )}
         <Link href="/temporizador">
           <Button
             bgColor="#2A4359"

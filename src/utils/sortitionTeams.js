@@ -31,5 +31,4 @@ export const sortTeams = (amount = 2, persons = []) => {
 
   // Retorna o array de times separado por sub-arrays
   return arrayDeTimes;
-}
-
+};
