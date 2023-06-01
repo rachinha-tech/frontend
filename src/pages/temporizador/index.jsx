@@ -54,6 +54,7 @@ function Timer() {
       <Flex align="center" justify="center" mb={4}>
         <Select
           value={hours}
+          disabled={isRunning ? 'disabled' : ''}
           onChange={(e) => setHours(parseInt(e.target.value))}
           mr={2}
         >
@@ -66,6 +67,7 @@ function Timer() {
 
         <Select
           value={minutes}
+          disabled={isRunning ? 'disabled' : ''}
           onChange={(e) => setMinutes(parseInt(e.target.value))}
           mr={2}
         >
@@ -78,6 +80,7 @@ function Timer() {
 
         <Select
           value={seconds}
+          disabled={isRunning ? 'disabled' : ''}
           onChange={(e) => setSeconds(parseInt(e.target.value))}
           mr={2}
         >
