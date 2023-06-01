@@ -16,17 +16,6 @@ function index() {
   return (
     <Box mt="9">
       <VStack spacing="4">
-        <Link href="/organizar-rachinha">
-          <Button
-            bgColor="#2A4359"
-            color="white"
-            leftIcon={<MdOutlineLocationOn size="24px" />}
-            size="lg"
-            w="full"
-          >
-            Organizar rachinha
-          </Button>
-        </Link>
         <Link href="/organizar-times">
           <Button
             bgColor="#2A4359"
@@ -95,17 +84,6 @@ function index() {
             w="full"
           >
             Temporizador
-          </Button>
-        </Link>
-        <Link href="/buscar-rachinha">
-          <Button
-            bgColor="#2A4359"
-            color="white"
-            leftIcon={<MdOutlineSearch size="24px" />}
-            size="lg"
-            w="full"
-          >
-            Buscar rachinha
           </Button>
         </Link>
       </VStack>
