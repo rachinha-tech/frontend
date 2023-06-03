@@ -8,6 +8,11 @@ function Timer() {
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
 
+  const playAlertSound = () => {
+    const audio = new Audio("/sounds/acabou.mp3");
+    audio.play();
+  };
+
   useEffect(() => {
     let intervalId;
 
@@ -36,24 +41,12 @@ function Timer() {
     return () => clearInterval(intervalId);
   }, [isRunning, hours, minutes, seconds]);
 
-  const playAlertSound = () => {
-    const audio = new Audio("/sounds/acabou.mp3");
-    audio.play();
-  };
-
-  const startTimer = () => {
-    setIsRunning(true);
-  };
-
-  const stopTimer = () => {
-    setIsRunning(false);
-  };
-
   return (
     <Box>
       <Flex align="center" justify="center" mb={4}>
         <Select
           value={hours}
+          disabled={isRunning ? 'disabled' : ''}
           onChange={(e) => setHours(parseInt(e.target.value))}
           mr={2}
         >
@@ -66,6 +59,7 @@ function Timer() {
 
         <Select
           value={minutes}
+          disabled={isRunning ? 'disabled' : ''}
           onChange={(e) => setMinutes(parseInt(e.target.value))}
           mr={2}
         >
@@ -78,6 +72,7 @@ function Timer() {
 
         <Select
           value={seconds}
+          disabled={isRunning ? 'disabled' : ''}
           onChange={(e) => setSeconds(parseInt(e.target.value))}
           mr={2}
         >
@@ -100,11 +95,11 @@ function Timer() {
       </Flex>
 
       <Flex alignItems={"center"} justifyContent={"center"}>
-        <Button colorScheme="teal" onClick={startTimer} mr={2}>
+        <Button colorScheme="teal" onClick={() => setIsRunning(true)} mr={2}>
           Iniciar
         </Button>
 
-        <Button colorScheme="red" onClick={stopTimer}>
+        <Button colorScheme="red" onClick={() => setIsRunning(false)}>
           Parar
         </Button>
       </Flex>

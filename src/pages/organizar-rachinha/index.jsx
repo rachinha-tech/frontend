@@ -1,48 +1,111 @@
+import React, { useEffect, useState } from "react";
 import {
-  Badge,
   Box,
+  Card,
+  CardBody,
+  Divider,
   Flex,
+  Heading,
+  IconButton,
+  Image,
+  Input,
   InputGroup,
   InputRightElement,
-  Input,
+  SimpleGrid,
+  Stack,
+  Text,
 } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
+import Link from "next/link";
+import {
+  MdOutlineGroups2,
+  MdOutlineSearch,
+  MdOutlineSportsSoccer,
+} from "react-icons/md";
 import Layout from "../../components/Layout";
-import LocalCard from "../../components/LocalCard";
-import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 
 function OrganizarRachinha() {
   const [locals, setLocals] = useState([]);
+  const [credentials, setCrendentials] = useState({});
 
-  async function getLocals() {
-    const { data } = await api.get("/locals");
+  const handleCrendentials = ({ target }) => {
+    const { name, value } = target;
 
-    setLocals(data);
-  }
+    setCrendentials({
+      ...credentials,
+      [name]: value,
+    });
+  };
+
+  const getLocals = async () => {
+    try {
+      const { data } = await api.get("/locals");
+
+      setLocals(data);
+    } catch (error) {}
+  };
 
   useEffect(() => {
-    // getLocals();
+    getLocals();
   }, []);
 
   return (
-    <Box>
-      <Flex>
-        <Badge bg="none" fontSize="sm">
-          PROCURAR LOCAL
-        </Badge>
-      </Flex>
-
-      <InputGroup mt={2}>
-        <Input bg="white" type="tel" placeholder="Digite o local..." />
-        <InputRightElement bg="#2A4359" pointerEvents="none">
-          <SearchIcon color="gray.300" />
+    <Box mt="9">
+      <InputGroup size="md" mb="2">
+        <Input
+          placeholder="Local"
+          bgColor="white"
+          name="local"
+          onChange={handleCrendentials}
+          value={credentials.local ?? ""}
+        />
+        <InputRightElement width="3.5rem">
+          <IconButton
+            h="1.75rem"
+            size="sm"
+            icon={<MdOutlineSearch size="24px" />}
+          />
         </InputRightElement>
       </InputGroup>
-
-      <Flex mt="8px" flexDirection="column">
-        <LocalCard title="ARENA BELA VISTA" />
-      </Flex>
+      <Box bgColor="gray" mb="2">
+        <Divider />
+      </Box>
+      <SimpleGrid columns={[1]} gap={2}>
+        {locals.map((local) => (
+          <Link
+            href={{
+              pathname: "/organizar-times/times",
+              query: {
+                local: JSON.stringify(local),
+              },
+            }}
+            key={local.id}
+          >
+            <Card maxW="sm">
+              <CardBody>
+                <Stack spacing="4">
+                  <Box>
+                    <Heading size="sm">{local.name}</Heading>
+                    <Text>{local.description}</Text>
+                  </Box>
+                  <Flex gap="4" alignItems="center">
+                    <Flex gap="1" alignItems="center">
+                      <MdOutlineSportsSoccer />
+                      <Text fontSize="sm">{local.modality.name}</Text>
+                    </Flex>
+                    <Flex gap="1" alignItems="center">
+                      <MdOutlineGroups2 />
+                      <Text fontSize="sm">
+                        {local.modality.quantity_players}
+                      </Text>
+                    </Flex>
+                  </Flex>
+                </Stack>
+              </CardBody>
+            </Card>
+          </Link>
+        ))}
+      </SimpleGrid>
     </Box>
   );
 }

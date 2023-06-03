@@ -16,6 +16,7 @@ import {
   StackDivider,
   Text,
   VStack,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
 import {
@@ -24,15 +25,18 @@ import {
   MdOutlineSettings,
   MdSettings,
 } from "react-icons/md";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { sortTeams } from "../../utils/sortitionTeams";
 import { useRouter } from "next/router";
 import { api } from "../../services/api";
+import withModalUpdateModality from "../../components/Modal/UpdateModality";
+import UpdateModality from "../../components/Modal/UpdateModality";
 
 function Times() {
   const [credentials, setCrendentials] = useState({});
   const [persons, setPersons] = useState([]);
   const [sorted, setSorted] = useState([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleCrendentials = ({ target }) => {
     const { name, value } = target;
@@ -63,7 +67,11 @@ function Times() {
 
   const { query } = useRouter();
 
-  const modalidade = JSON.parse(query.modalidade);
+  const modalidade = JSON.parse(query?.modalidade);
+
+  const handleOpenModal = useCallback(() => {
+    onOpen(modalidade?.id);
+  }, [modalidade?.id, onOpen]);
 
   if (sorted.length) {
     return (
@@ -74,7 +82,7 @@ function Times() {
 
         <CardBody>
           {sorted.map((teams, index) => (
-            <Flex flexDirection="column" gap="2" mb="10">
+            <Flex key={index} flexDirection="column" gap="2" mb="10">
               <Text fontSize="18px" fontWeight="bold">
                 Time {index + 1}
               </Text>
@@ -109,11 +117,21 @@ function Times() {
 
   return (
     <VStack mt="9" spacing="4">
+      <UpdateModality
+        isOpen={isOpen}
+        onClose={onClose}
+        modalityId={modalidade?.id}
+      />
+
       <Flex justifyContent="space-between" alignItems="center" w="full">
         <Badge variant="outline">
           {modalidade.name} - {modalidade.quantity_players} pessoas
         </Badge>
-        <IconButton variant="ghost" icon={<MdOutlineSettings size="24px" />} />
+        <IconButton
+          variant="ghost"
+          icon={<MdOutlineSettings size="24px" />}
+          onClick={handleOpenModal}
+        />
       </Flex>
       <InputGroup size="md">
         <Input
@@ -176,6 +194,6 @@ function Times() {
   );
 }
 
-Times.layout = (page) => <Layout>{page}</Layout>;
+Times.layout = (page) => <Layout>{page}</Layout>
 
 export default Times;
