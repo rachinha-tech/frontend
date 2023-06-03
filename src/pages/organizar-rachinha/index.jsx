@@ -9,8 +9,22 @@ import {
 import { SearchIcon } from "@chakra-ui/icons";
 import Layout from "../../components/Layout";
 import LocalCard from "../../components/LocalCard";
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
 
 function OrganizarRachinha() {
+  const [locals, setLocals] = useState([]);
+
+  async function getLocals() {
+    const { data } = await api.get("/locals");
+
+    setLocals(data);
+  }
+
+  useEffect(() => {
+    // getLocals();
+  }, []);
+
   return (
     <Box>
       <Flex>
@@ -27,7 +41,7 @@ function OrganizarRachinha() {
       </InputGroup>
 
       <Flex mt="8px" flexDirection="column">
-        <LocalCard title="ARENA BELA VISTA"/>
+        <LocalCard title="ARENA BELA VISTA" />
       </Flex>
     </Box>
   );
