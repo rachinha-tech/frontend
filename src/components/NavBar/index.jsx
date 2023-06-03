@@ -7,20 +7,27 @@ import {
   Stack,
   Collapse,
   Icon,
-  Link,
   useColorModeValue,
   useDisclosure,
   Avatar,
+  Menu,
+  MenuItem,
+  MenuButton,
+  MenuList,
+  MenuDivider,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import Logo from "../../components/Logo";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContex";
 import withModalLogin from "../Modal/Login";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 function NavBar({ onOpenLogin }) {
   const { isOpen, onToggle } = useDisclosure();
-  const { user, isAuthenticated } = useContext(AuthContext);
+  const { user, isAuthenticated, signOut } = useContext(AuthContext);
+  const router = useRouter()
 
   return (
     <Box w="full">
@@ -61,7 +68,25 @@ function NavBar({ onOpenLogin }) {
             spacing={6}
           >
             {isAuthenticated ? (
-              <Avatar size="sm" name={user?.name} />
+              <Menu>
+                <MenuButton>
+                  <Avatar size="sm" name={user?.name} />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem as={'div'}>
+                    <Link href="/perfil" passHref>Perfil</Link>
+                  </MenuItem>
+                  <MenuDivider />
+                  <MenuItem
+                    onClick={() => {
+                      signOut();
+                      router.push("/");
+                    }}
+                  >
+                    Sair
+                  </MenuItem>
+                </MenuList>
+              </Menu>
             ) : (
               <Button
                 as={"a"}
@@ -105,7 +130,7 @@ const MobileNavItem = ({ label, children, href }) => {
     <Stack spacing={4} onClick={children && onToggle}>
       <Flex
         py={2}
-        as={Link}
+        // as={Link}
         href={href ?? "#"}
         justify={"space-between"}
         align={"center"}
