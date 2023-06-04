@@ -23,6 +23,10 @@ import { AuthContext } from "../../contexts/AuthContex";
 import withModalLogin from "../Modal/Login";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { BiUserCircle } from "react-icons/bi";
+import { BsDoorOpen } from "react-icons/bs";
+import { MdLocalBar, MdOutlineCalendarMonth } from "react-icons/md";
+import { SlLocationPin } from "react-icons/sl";
 
 function NavBar({ onOpenLogin }) {
   const { isOpen, onToggle } = useDisclosure();
@@ -77,15 +81,42 @@ function NavBar({ onOpenLogin }) {
                 </MenuButton>
                 <MenuList>
                   <Link href="/perfil" passHref>
-                    <MenuItem>Perfil</MenuItem>
+                    <MenuItem gap={2}>
+                      <BiUserCircle size={24} />
+                      Perfil
+                    </MenuItem>
                   </Link>
+                  {user.level === "owner" && (
+                    <>
+                      <Link href="/local" passHref>
+                        <MenuItem gap={2}>
+                          <SlLocationPin size={20} />
+                          Meu local
+                        </MenuItem>
+                      </Link>
+                      <Link href="/comodidades" passHref>
+                        <MenuItem gap={2}>
+                          <MdLocalBar size={20} />
+                          Comodidades
+                        </MenuItem>
+                      </Link>
+                      <Link href="/agenda" passHref>
+                        <MenuItem gap={2}>
+                          <MdOutlineCalendarMonth size={20} />
+                          Agenda
+                        </MenuItem>
+                      </Link>
+                    </>
+                  )}
                   <MenuDivider />
                   <MenuItem
                     onClick={() => {
                       signOut();
                       router.push("/");
                     }}
+                    gap={2}
                   >
+                    <BsDoorOpen size={20} />
                     Sair
                   </MenuItem>
                 </MenuList>
