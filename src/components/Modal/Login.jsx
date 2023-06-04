@@ -1,7 +1,6 @@
 import {
   Button,
   Flex,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -18,6 +17,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContex";
+import { InputPassword } from "../Forms/InputPassword";
+import { Input } from "../Forms/Input";
+import { GiPadlock } from "react-icons/gi";
+import { BiUserCircle } from "react-icons/bi";
+import { BsBoxArrowInRight } from "react-icons/bs";
 
 const loginFormSchema = yup.object({
   login: yup.string().required("Login obrigatório"),
@@ -73,17 +77,21 @@ function Login({ isOpen, onClose }) {
               onSubmit={handleSubmit(handleLogin)}
             >
               <Input
+                label="Login"
                 {...register("login")}
+                icon={<BiUserCircle size={22} />}
                 size="sm"
                 variant="flushed"
-                placeholder="Login"
+                error={errors.message}
               />
-              <Input
+
+              <InputPassword
+                label={"Senha"}
                 {...register("password")}
+                icon={<GiPadlock size={22} />}
                 size="sm"
                 variant="flushed"
-                type="password"
-                placeholder="Senha"
+                error={errors.message}
               />
 
               <Flex flexDirection="column" gap={2}>
@@ -92,11 +100,9 @@ function Login({ isOpen, onClose }) {
                   size="sm"
                   colorScheme="green"
                   type="submit"
+                  leftIcon={<BsBoxArrowInRight size={22} />}
                 >
                   Acessar
-                </Button>
-                <Button size="sm" colorScheme="blue" type="submit">
-                  Realizar Cadastro
                 </Button>
               </Flex>
             </SimpleGrid>
