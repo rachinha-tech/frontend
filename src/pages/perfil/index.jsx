@@ -12,12 +12,12 @@ import Layout from "../../components/Layout";
 import { Input } from "../../components/Forms/Input";
 import { MdOutlineArrowBack, MdOutlineSave } from "react-icons/md";
 import { CgUserList } from "react-icons/cg";
+import { InputPassword } from "../../components/Forms/InputPassword";
+import { useRouter } from "next/router";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useRouter } from "next/router";
-import { InputPassword } from "../../components/Forms/InputPassword";
 
 const userFormSchema = yup.object({
   name: yup.string().required("Login obrigatório"),
@@ -73,11 +73,12 @@ function Profile() {
       <CardBody as={"form"} onSubmit={handleSubmit(handleProfileSubmit)}>
         <VStack mb={8}>
           <Input label={"Nome"} variant="flushed" {...register("name")} />
-          <Input label={"Usuário"} variant="flushed" {...register("login")} />
-          <Input label={"Email"} variant="flushed" {...register("email")} />
+          <Input label={"Usuário"} variant="flushed" {...register("login")} disabled />
+          <Input label={"Email"} variant="flushed" {...register("email")} disabled/>
           <Input
             label={"Data de aniversário"}
             variant="flushed"
+            type={"date"}
             {...register("date_birth")}
           />
           <InputPassword
