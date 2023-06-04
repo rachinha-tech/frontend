@@ -25,7 +25,7 @@ import {
   MdOutlineSettings,
   MdSettings,
 } from "react-icons/md";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { sortTeams } from "../../utils/sortitionTeams";
 import { useRouter } from "next/router";
 import { api } from "../../services/api";
@@ -66,8 +66,7 @@ function Times() {
   };
 
   const { query } = useRouter();
-
-  const modalidade = JSON.parse(query?.modalidade);
+  const modalidade = query;
 
   const handleOpenModal = useCallback(() => {
     onOpen(modalidade?.id);
@@ -115,6 +114,12 @@ function Times() {
     );
   }
 
+  useEffect(() => {
+    if (modalidade) {
+      return;
+    }
+  }, [modalidade]);
+
   return (
     <VStack mt="9" spacing="4">
       <UpdateModality
@@ -125,7 +130,7 @@ function Times() {
 
       <Flex justifyContent="space-between" alignItems="center" w="full">
         <Badge variant="outline">
-          {modalidade.name} - {modalidade.quantity_players} pessoas
+          {modalidade.name} - {modalidade.quantity} pessoas
         </Badge>
         <IconButton
           variant="ghost"
@@ -194,6 +199,6 @@ function Times() {
   );
 }
 
-Times.layout = (page) => <Layout>{page}</Layout>
+Times.layout = (page) => <Layout>{page}</Layout>;
 
 export default Times;

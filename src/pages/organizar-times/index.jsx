@@ -38,12 +38,15 @@ function OrganizarTimes() {
             href={{
               pathname: "/organizar-times/times",
               query: {
-                modalidade: JSON.stringify(modality),
+                id: modality.id,
+                name: modality.name,
+                quantity: modality.quantity_players,
               },
             }}
             key={modality.id}
           >
             <Card maxW="sm">
+              {/* {console.log('oi', modality)} */}
               <CardBody>
                 <Image
                   src={modality.url_image}
