@@ -27,11 +27,12 @@ import { useRouter } from "next/router";
 function NavBar({ onOpenLogin }) {
   const { isOpen, onToggle } = useDisclosure();
   const { user, isAuthenticated, signOut } = useContext(AuthContext);
-  const router = useRouter()
+  const router = useRouter();
 
   return (
-    <Box w="full">
+    <>
       <Flex
+        w="full"
         bg={useColorModeValue("#DFE9F2", "gray.800")}
         color={useColorModeValue("gray.600", "#DFE9F2")}
         minH={"60px"}
@@ -41,6 +42,7 @@ function NavBar({ onOpenLogin }) {
         borderStyle={"solid"}
         borderColor={useColorModeValue("gray.200", "gray.900")}
         align={"center"}
+        justifyContent={"space-between"}
       >
         <Flex
           flex={{ base: 1, md: "auto" }}
@@ -56,6 +58,7 @@ function NavBar({ onOpenLogin }) {
             aria-label={"Toggle Navigation"}
           />
         </Flex>
+
         <Flex justify={{ base: "center", md: "start" }}>
           <Logo />
         </Flex>
@@ -73,9 +76,9 @@ function NavBar({ onOpenLogin }) {
                   <Avatar size="sm" name={user?.name} />
                 </MenuButton>
                 <MenuList>
-                  <MenuItem as={'div'}>
-                    <Link href="/perfil" passHref>Perfil</Link>
-                  </MenuItem>
+                  <Link href="/perfil" passHref>
+                    <MenuItem>Perfil</MenuItem>
+                  </Link>
                   <MenuDivider />
                   <MenuItem
                     onClick={() => {
@@ -105,7 +108,7 @@ function NavBar({ onOpenLogin }) {
       <Collapse in={isOpen} animateOpacity>
         <MobileNav />
       </Collapse>
-    </Box>
+    </>
   );
 }
 
@@ -131,7 +134,7 @@ const MobileNavItem = ({ label, children, href }) => {
       <Flex
         py={2}
         // as={Link}
-        href={href ?? "#"}
+        // href={href ?? "#"}
         justify={"space-between"}
         align={"center"}
         _hover={{
