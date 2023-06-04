@@ -7,15 +7,7 @@ const Logo = () => {
   return (
     <Link href={"/"} passHref>
       <Flex gap={2}>
-        <Image src="/logo.png" width={36} height={36} />
-        <Flex>
-          <Text color="#1A4B86" fontWeight="semibold" fontSize={25}>
-            RACHI
-          </Text>
-          <Text color="#5FA0FF" fontWeight="semibold" fontSize={25}>
-            NHA
-          </Text>
-        </Flex>
+        <Image src="/logo.png" width={156} height={36} />
       </Flex>
     </Link>
   );
