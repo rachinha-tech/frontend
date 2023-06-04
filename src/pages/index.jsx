@@ -24,7 +24,7 @@ function index() {
             size="lg"
             w="full"
           >
-            Organizar times
+            Sortear times
           </Button>
         </Link>
         {isAuthenticated ? (
