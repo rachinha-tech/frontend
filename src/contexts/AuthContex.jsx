@@ -54,18 +54,34 @@ export function AuthProvider({ children }) {
     });
   };
 
+  const updateUser = async (id, dataForm) => {
+    try {
+      console.log(dataForm);
+      const { data, message } = await api.put(`/user/${id}`, dataForm);
+      // setUser({
+      //   ...user,
+      //   name: dataForm,
+      //   date_birth: dataForm.date_birth,
+      //   password: dataForm.password,
+      //   password_confirmation: dataForm.password_confirmation,
+      // });
+
+      return;
+    } catch (error) {}
+  };
+
   const signOut = async () => {
     return new Promise(async (resolve, reject) => {
       try {
         destroyCookie(undefined, "rachinha.token");
 
         setUser(null);
-        resolve()
+        resolve();
       } catch (error) {
         reject(error);
       }
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     const { "rachinha.token": token } = parseCookies();
@@ -76,7 +92,9 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, signIn, signOut, updateUser }}
+    >
       {children}
     </AuthContext.Provider>
   );
