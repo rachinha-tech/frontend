@@ -10,6 +10,7 @@ import {
 } from "react-icons/md";
 
 import NavButton from "../components/NavButton";
+import { AuthContext } from "../contexts/AuthContex";
 
 function index() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -17,9 +18,9 @@ function index() {
   return (
     <VStack spacing="4" mx={6}>
       <NavButton
-        title="Sorteio de Times"
+        title="Sortear de Times"
         icon={<MdOutlineGroup />}
-        href="/sorteio-times"
+        href="/sortear-times"
       />
 
       <NavButton
@@ -29,15 +30,17 @@ function index() {
       />
 
       <NavButton
-        title="Organizar Racha"
+        title="Organizar Rachinha"
         icon={<MdOutlineBuild />}
-        href="/organizar-racha"
+        href="/organizar-rachinha"
+        disabled={isAuthenticated ? false : true}
       />
 
       <NavButton
         title="Pesquisar Racha"
         icon={<MdOutlinePinDrop />}
         href="/pesquisar-racha"
+        disabled={isAuthenticated ? false : true}
       />
     </VStack>
   );
