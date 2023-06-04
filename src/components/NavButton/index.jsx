@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 import React from "react";
 import Link from "next/link";
 
-export default function NavButton({ title, icon, color = "blue.900", href }) {
+export default function NavButton({ title, icon, disabled = null, color = "blue.900", href }) {
   return (
     <Link href={href} passHref>
       <Button
@@ -11,6 +11,7 @@ export default function NavButton({ title, icon, color = "blue.900", href }) {
         size="lg"
         w="full"
         leftIcon={icon}
+        isDisabled={disabled}
         _hover={{ opacity: "0.8" }}
       >
         {title}
