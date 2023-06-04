@@ -1,47 +1,115 @@
-import React from "react";
-import { SimpleGrid } from "@chakra-ui/react";
-
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Card,
+  CardBody,
+  Divider,
+  Flex,
+  Heading,
+  IconButton,
+  Image,
+  Input,
+  InputGroup,
+  InputRightElement,
+  SimpleGrid,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+import Link from "next/link";
+import {
+  MdOutlineGroups2,
+  MdOutlineSearch,
+  MdOutlineSportsSoccer,
+} from "react-icons/md";
 import Layout from "../../components/Layout";
-import BoxCard from "../../components/BoxCard";
+import { api } from "../../services/api";
 
-const modalidades = [
-  {
-    id: 1,
-    regra: "2x4",
-    nome: "Futsal",
-    imagem:
-      "https://static.sportit.com.br/public/sportit/imagens/produtos/quadra-completa-futebol-de-salao-915.jpg",
-  },
-  {
-    id: 2,
-    regra: "2x5",
-    nome: "Futebol",
-    imagem:
-      "https://multiurso.com.br/wp-content/uploads/2022/09/tamanho-campo-futebol-oficial-fifa-foto-1132x670.jpg",
-  },
-  {
-    id: 3,
-    regra: "2x1",
-    nome: "Tenis",
-    imagem: "https://www.ax3.com.br/imagens/pisos/quadras-tenis-01.jpg",
-  },
-];
+function OrganizarRachinha() {
+  const [locals, setLocals] = useState([]);
+  const [credentials, setCrendentials] = useState({});
 
-function SorteioTimes() {
+  const handleCrendentials = ({ target }) => {
+    const { name, value } = target;
+
+    setCrendentials({
+      ...credentials,
+      [name]: value,
+    });
+  };
+
+  const getLocals = async () => {
+    try {
+      const { data } = await api.get("/locals");
+
+      setLocals(data);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    getLocals();
+  }, []);
+
   return (
-    <SimpleGrid columns={[2]} spacing={4}>
-      {modalidades.map((modalidade) => (
-        <BoxCard
-          title={modalidade.nome}
-          src={modalidade.imagem}
-          rule={modalidade.regra}
-          modality={modalidade}
+    <Box mt="9">
+      <InputGroup size="md" mb="2">
+        <Input
+          placeholder="Local"
+          bgColor="white"
+          name="local"
+          onChange={handleCrendentials}
+          value={credentials.local ?? ""}
         />
-      ))}
-    </SimpleGrid>
+        <InputRightElement width="3.5rem">
+          <IconButton
+            h="1.75rem"
+            size="sm"
+            icon={<MdOutlineSearch size="24px" />}
+          />
+        </InputRightElement>
+      </InputGroup>
+      <Box bgColor="gray" mb="2">
+        <Divider />
+      </Box>
+      <SimpleGrid columns={[1]} gap={2}>
+        {locals.map((local) => (
+          <Link
+            href={{
+              pathname: "/organizar-times/times",
+              query: {
+                local: JSON.stringify(local),
+              },
+            }}
+            key={local.id}
+          >
+            <Card maxW="sm">
+              <CardBody>
+                <Stack spacing="4">
+                  <Box>
+                    <Heading size="sm">{local.name}</Heading>
+                    <Text>{local.description}</Text>
+                  </Box>
+                  <Flex gap="4" alignItems="center">
+                    <Flex gap="1" alignItems="center">
+                      <MdOutlineSportsSoccer />
+                      <Text fontSize="sm">{local.modality.name}</Text>
+                    </Flex>
+                    <Flex gap="1" alignItems="center">
+                      <MdOutlineGroups2 />
+                      <Text fontSize="sm">
+                        {local.modality.quantity_players}
+                      </Text>
+                    </Flex>
+                  </Flex>
+                </Stack>
+              </CardBody>
+            </Card>
+          </Link>
+        ))}
+      </SimpleGrid>
+    </Box>
   );
 }
 
-SorteioTimes.layout = (page) => <Layout>{page}</Layout>;
+OrganizarRachinha.layout = (page) => <Layout>{page}</Layout>;
 
-export default SorteioTimes;
+export default OrganizarRachinha;
