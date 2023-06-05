@@ -3,11 +3,10 @@ import {
   Button,
   Card,
   CardBody,
+  CardFooter,
   CardHeader,
   Flex,
-  SimpleGrid,
-  Text,
-  VStack,
+  Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
@@ -15,16 +14,43 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Alert } from "../../components/Alert";
-
 import { api } from "../../services/api";
 import Link from "next/link";
 import { BiTrash } from "react-icons/bi";
+import { Input } from "../../components/Forms/Input";
+import { Select } from "../../components/Forms/Select";
+import { MdOutlineSave } from "react-icons/md";
+
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const LocalFormSchema = yup.object({
+  modality_id: yup.number().required("Modalidade obrigatório"),
+  name: yup.string().required("Nome do local obrigatório"),
+  description: yup.string(),
+  // url_image: yup.string(),
+  // latitude: yup.string().required("Informe as coordenadas"),
+  // longitude: yup.string().required("Informe as coordenadas"),
+  value_of_hour: yup.string().required("Valor do local obrigatório"),
+});
 
 function MyLocal() {
   const [local, setLocal] = useState({});
   const [selectedLocalDelete, setSelectedLocalDelete] = useState([]);
+  const [editable, setEditable] = useState(true);
+  const [modalities, setModalities] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
+
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: yupResolver(LocalFormSchema),
+  });
 
   const dataAlert = {
     title: "Quer apagar o local?",
@@ -36,9 +62,25 @@ function MyLocal() {
 
   const getLocal = async () => {
     try {
-      const { data } = await api.get("/locals/14");
+      const { data } = await api.get("/locals/my");
 
       setLocal(data);
+      reset(data);
+    } catch (error) {}
+  };
+
+  const getModalities = async () => {
+    try {
+      const { data } = await api.get("/modalities");
+
+      setModalities(data);
+    } catch (error) {}
+  };
+
+  const handleUpdateLocal = async (data) => {
+    try {
+      const { message } = await api.put(`/locals/${local.id}`, data);
+      await getLocal();
     } catch (error) {}
   };
 
@@ -52,12 +94,12 @@ function MyLocal() {
       const { message } = await api.delete(`/locals/${selectedLocalDelete}`);
       await getLocal();
       onClose();
-      console.log(message);
     } catch (error) {}
   };
 
   useEffect(() => {
     getLocal();
+    getModalities();
   }, []);
 
   return (
@@ -77,46 +119,81 @@ function MyLocal() {
           </Flex>
 
           <Flex gap={2}>
-            <Link href={"/local/criar"}>
-              <Button
-                size={"xs"}
-                colorScheme="blue"
-                isDisabled={Object.keys(local).length ? true : false}
-              >
-                Criar
-              </Button>
-            </Link>
-            <Button size={"xs"} colorScheme="orange">
-              Editar
+            {!Object.keys(local).length && (
+              <Link href={"/local/criar"}>
+                <Button size={"xs"} colorScheme="blue">
+                  Criar
+                </Button>
+              </Link>
+            )}
+
+            <Button
+              size={"xs"}
+              colorScheme={editable ? "orange" : "teal"}
+              isDisabled={!editable}
+              display={Object.keys(local).length ? "block" : "none"}
+              onClick={() => setEditable(false)}
+            >
+              {editable ? "Editar" : "Editando"}
             </Button>
           </Flex>
         </Flex>
       </CardHeader>
 
-      <CardBody>
-        <Flex flexWrap={"wrap"} gap={8}>
-          <Box>
-            <Text fontWeight={"bold"}>Nome</Text>
-            {local.name}
-          </Box>
-          <Box>
-            <Text fontWeight={"bold"}>Comodidades</Text>
-            {local.name}
-          </Box>
-          <Box>
-            <Text fontWeight={"bold"}>Modalidade</Text>
-            {local.modality?.name}
-          </Box>
-          <Box>
-            <Text fontWeight={"bold"}>Descrição do local</Text>
-            {local.description}
-          </Box>
+      <CardBody as={"form"} onSubmit={handleSubmit(handleUpdateLocal)}>
+        <Flex flexWrap={"wrap"} gap={4}>
+          <Input
+            label={"Nome"}
+            isDisabled={editable}
+            variant="flushed"
+            {...register("name")}
+          />
+          <Input
+            label={"Valor"}
+            isDisabled={editable}
+            variant="flushed"
+            type={"number"}
+            {...register("value_of_hour")}
+          />
+          <Select
+            label={"Modalidade"}
+            isDisabled={editable}
+            {...register("modality_id")}
+          >
+            {modalities.map((mod) => (
+              <option key={mod.id} value={mod.id}>
+                {mod.name}
+              </option>
+            ))}
+          </Select>
+
+          <Input label={"Comodidades"} isDisabled={true} variant="flushed" />
+
+          <Textarea
+            my={4}
+            placeholder={"Descrição do local"}
+            isDisabled={editable}
+            variant="flushed"
+            {...register("description")}
+          />
         </Flex>
 
+        {!editable && (
+          <Flex justify={"flex-end"}>
+            <Button
+              type="submit"
+              isLoading={isSubmitting}
+              colorScheme="green"
+              leftIcon={<MdOutlineSave />}
+            >
+              Salvar
+            </Button>
+          </Flex>
+        )}
+      </CardBody>
+
+      <CardFooter align={"center"} justify={"center"}>
         <Flex
-          mt={10}
-          align={"center"}
-          justify={"center"}
           gap={1}
           color={"red"}
           textDecoration={"underline"}
@@ -125,7 +202,7 @@ function MyLocal() {
           <BiTrash size={20} />
           Excluir local
         </Flex>
-      </CardBody>
+      </CardFooter>
     </Card>
   );
 }
