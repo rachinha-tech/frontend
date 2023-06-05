@@ -46,7 +46,7 @@ function Timer() {
       <Flex>
         <Select
           value={hours}
-          disabled={isRunning ? 'disabled' : ''}
+          disabled={isRunning ? "disabled" : ""}
           onChange={(e) => setHours(parseInt(e.target.value))}
         >
           {Array.from({ length: 24 }).map((_, i) => (
@@ -58,7 +58,7 @@ function Timer() {
 
         <Select
           value={minutes}
-          disabled={isRunning ? 'disabled' : ''}
+          disabled={isRunning ? "disabled" : ""}
           onChange={(e) => setMinutes(parseInt(e.target.value))}
         >
           {Array.from({ length: 60 }).map((_, i) => (
@@ -70,7 +70,7 @@ function Timer() {
 
         <Select
           value={seconds}
-          disabled={isRunning ? 'disabled' : ''}
+          disabled={isRunning ? "disabled" : ""}
           onChange={(e) => setSeconds(parseInt(e.target.value))}
         >
           {Array.from({ length: 60 }).map((_, i) => (
