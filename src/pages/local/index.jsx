@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Card,
   CardBody,
@@ -19,11 +18,12 @@ import Link from "next/link";
 import { BiTrash } from "react-icons/bi";
 import { Input } from "../../components/Forms/Input";
 import { Select } from "../../components/Forms/Select";
-import { MdOutlineSave } from "react-icons/md";
+import { MdOutlinePinDrop, MdOutlineSave } from "react-icons/md";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import ModalMaps from "../../components/Modal/ModalMaps";
 
 const LocalFormSchema = yup.object({
   modality_id: yup.number().required("Modalidade obrigatório"),
@@ -97,6 +97,10 @@ function MyLocal() {
     } catch (error) {}
   };
 
+  const handleClickMaps = () => {
+    onOpen();
+  };
+
   useEffect(() => {
     getLocal();
     getModalities();
@@ -110,6 +114,8 @@ function MyLocal() {
         onClick={handleClickDelete}
         data={dataAlert}
       />
+
+      <ModalMaps isOpen={isOpen} onClose={onClose} />
 
       <CardHeader>
         <Flex justify={"space-between"} align={"center"}>
@@ -168,6 +174,34 @@ function MyLocal() {
           </Select>
 
           <Input label={"Comodidades"} isDisabled={true} variant="flushed" />
+
+          <Flex align={'center'}>
+            <Input
+              label={"Latitude"}
+              isDisabled={true}
+              variant="flushed"
+              type={"number"}
+              {...register("latitude")}
+            />
+            <Input
+              label={"Longitude"}
+              isDisabled={true}
+              variant="flushed"
+              type={"number"}
+              {...register("longitude")}
+            />
+            <Button
+              type="submit"
+              isLoading={isSubmitting}
+              isDisabled={editable}
+              colorScheme="teal"
+              h={"full"}
+              size={"xs"}
+              onClick={handleClickMaps}
+            >
+              <MdOutlinePinDrop size={52}/>
+            </Button>
+          </Flex>
 
           <Textarea
             my={4}
