@@ -65,14 +65,6 @@ function Times() {
     setPersons([...newPersons]);
   };
 
-  const { query } = useRouter();
-
-  // const modalidade = JSON.parse(query?.modalidade);
-
-  // const handleOpenModal = useCallback(() => {
-  //   onOpen(modalidade?.id);
-  // }, [modalidade?.id, onOpen]);
-
   if (sorted.length) {
     return (
       <Card w="full" variant="outline">
@@ -120,17 +112,14 @@ function Times() {
       <UpdateModality
         isOpen={isOpen}
         onClose={onClose}
-        // modalityId={modalidade?.id}
       />
 
       <Flex justifyContent="space-between" alignItems="center" w="full">
         <Badge variant="outline">
-          {/* {modalidade.name} - {modalidade.quantity_players} pessoas */}
         </Badge>
         <IconButton
           variant="ghost"
           icon={<MdOutlineSettings size="24px" />}
-          // onClick={handleOpenModal}
         />
       </Flex>
       <InputGroup size="md">
