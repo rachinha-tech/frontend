@@ -75,9 +75,9 @@ function OrganizarRachinha() {
           <Link
             href={{
               pathname: "/organizar-times/times",
-              query: {
-                local: JSON.stringify(local),
-              },
+              // query: {
+              //   local: JSON.stringify(local),
+              // },
             }}
             key={local.id}
           >

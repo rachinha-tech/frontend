@@ -44,7 +44,7 @@ function Times() {
 
   const { query } = useRouter();
 
-  const modalidade = JSON.parse(query.modalidade)
+  // const modalidade = JSON.parse(query.modalidade)
 
   if (sorted.length) {
     return (
@@ -86,7 +86,7 @@ function Times() {
   return (
     <VStack mt="9" spacing="4">
       <Flex justifyContent="space-between" alignItems="center" w="full">
-        <Badge variant="outline">{modalidade.name} - {modalidade.quantity_players} pessoas</Badge>
+        {/* <Badge variant="outline">{modalidade.name} - {modalidade.quantity_players} pessoas</Badge> */}
         <IconButton variant="ghost" icon={<MdOutlineSettings size="24px" />} />
       </Flex>
       <InputGroup size='md'>
