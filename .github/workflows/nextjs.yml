@@ -53,6 +53,8 @@ jobs:
         with:
           node-version: "18"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
+      - name: Run tests
+          run: npm run component:headless
       - name: Setup Pages
         uses: actions/configure-pages@v3
         with:
