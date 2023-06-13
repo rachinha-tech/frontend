@@ -1,9 +1,13 @@
 import {
+  Box,
   Button,
   Card,
   CardBody,
   CardHeader,
+  Divider,
   Flex,
+  FormControl,
+  FormLabel,
   Textarea,
   VStack,
 } from "@chakra-ui/react";
@@ -15,17 +19,22 @@ import { Input } from "../../components/Forms/Input";
 import { AuthContext } from "../../contexts/AuthContex";
 
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { MdOutlineArrowBack, MdOutlineSave } from "react-icons/md";
 import { api } from "../../services/api";
 import { Select } from "../../components/Forms/Select";
+import dayjs from "dayjs";
 
 const LocalFormSchema = yup.object({
   modality_id: yup.number().required("Modalidade obrigatório"),
   name: yup.string().required("Nome do local obrigatório"),
   description: yup.string(),
-  // schu: yup.string(),
+  schedule: yup.array().of(
+    yup.object({
+      hours_minutes: yup.string()
+    })
+  ),
   value_of_hour: yup.string().required("Valor do local obrigatório"),
 });
 
@@ -33,15 +42,25 @@ function Criar() {
   const [modalities, setModalities] = useState([]);
   const router = useRouter();
 
+  const initialSchedule = {
+    "hours_minutes": dayjs().format('HH:mm'),
+  }
+
   const {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(LocalFormSchema),
   });
-console.log(errors);
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "schedule",
+  });
+
   const getModalities = async () => {
     try {
       const { data } = await api.get("/modalities");
@@ -93,6 +112,35 @@ console.log(errors);
             {...register("description")}
           />
         </VStack>
+
+        {
+            fields.map((field, index) =>
+              <Box w="full" key={index}>
+                  <FormControl gap={["6", "8"]}>
+                    <FormLabel>Horário</FormLabel>
+                    <Input type="time" {...register(`schedule[${index}].hours_minutes`)} />
+                  </FormControl>
+
+                <Flex justifyContent="start" w="full" gap={"2"}>
+                  <Button
+                    size="sm"
+                    colorScheme="red"
+                    onClick={() => remove(index)}
+                  >
+                    Remover
+                  </Button>
+                </Flex>
+
+                <Box bg="gray.800">
+                  <Divider my="2" />
+                </Box>
+              </Box>
+            )
+          }
+
+          <Flex justifyContent="start" w="full" mb={"8"}>
+            <Button colorScheme="teal" size={'sm'} onClick={() => append(initialSchedule)}>Adicionar Horário</Button>
+          </Flex>
 
         <Flex justifyContent={"flex-end"} gap={4}>
           <Button

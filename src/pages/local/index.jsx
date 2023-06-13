@@ -1,11 +1,18 @@
 import {
+  Badge,
+  Box,
   Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   Flex,
+  FormControl,
+  FormLabel,
+  HStack,
+  Text,
   Textarea,
+  VStack,
   useDisclosure,
 } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
@@ -34,6 +41,7 @@ const LocalFormSchema = yup.object({
 
 function MyLocal() {
   const [local, setLocal] = useState({});
+  const [schedule, setSchedule] = useState([]);
   const [selectedLocalDelete, setSelectedLocalDelete] = useState([]);
   const [editable, setEditable] = useState(true);
   const [modalities, setModalities] = useState([]);
@@ -62,6 +70,8 @@ function MyLocal() {
       const { data } = await api.get("/locals/my");
 
       setLocal(data);
+      setSchedule(data.schedule);
+      console.log(data.schedule);
       reset(data);
     } catch (error) {}
   };
@@ -78,14 +88,13 @@ function MyLocal() {
     try {
       const { message } = await api.put(`/locals/${local.id}`, data);
       await getLocal();
-      router.push('/')
+      router.push("/");
     } catch (error) {}
   };
 
   const handleClickOpenAlert = async ({ id }) => {
     onOpen();
     setSelectedLocalDelete(id);
-
   };
 
   const handleClickDelete = async () => {
@@ -93,7 +102,7 @@ function MyLocal() {
       const { message } = await api.delete(`/locals/${selectedLocalDelete}`);
       await getLocal();
       onClose();
-      router.push('/')
+      router.push("/");
     } catch (error) {}
   };
 
@@ -172,9 +181,7 @@ function MyLocal() {
               </option>
             ))}
           </Select>
-
           {/* <Input label={"Comodidades"} isDisabled={true} variant="flushed" /> */}
-
           {/* <Flex align={'center'}>
             <Input
               label={"Latitude"}
@@ -202,7 +209,6 @@ function MyLocal() {
               <MdOutlinePinDrop size={52}/>
             </Button>
           </Flex> */}
-
           <Textarea
             my={4}
             placeholder={"Descrição do local"}
@@ -210,6 +216,12 @@ function MyLocal() {
             variant="flushed"
             {...register("description")}
           />
+
+          <Text w={"full"}>Agenda</Text>
+
+          {schedule.map((el) => (
+            <Badge key={el.id} colorScheme="teal" w={"full"}>{el.hours_minutes}</Badge>
+          ))}
         </Flex>
 
         {!editable && (
