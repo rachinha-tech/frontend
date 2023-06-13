@@ -36,12 +36,12 @@ function index() {
         disabled={isAuthenticated ? false : true}
       />
 
-      <NavButton
+      {/* <NavButton
         title="Pesquisar Racha"
         icon={<MdOutlinePinDrop />}
         href="/pesquisar-racha"
         disabled={isAuthenticated ? false : true}
-      />
+      /> */}
     </VStack>
   );
 }

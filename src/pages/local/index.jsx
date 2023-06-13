@@ -21,7 +21,7 @@ import { Select } from "../../components/Forms/Select";
 import { MdOutlinePinDrop, MdOutlineSave } from "react-icons/md";
 
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ModalMaps from "../../components/Modal/ModalMaps";
 
@@ -29,9 +29,6 @@ const LocalFormSchema = yup.object({
   modality_id: yup.number().required("Modalidade obrigatório"),
   name: yup.string().required("Nome do local obrigatório"),
   description: yup.string(),
-  // url_image: yup.string(),
-  // latitude: yup.string().required("Informe as coordenadas"),
-  // longitude: yup.string().required("Informe as coordenadas"),
   value_of_hour: yup.string().required("Valor do local obrigatório"),
 });
 
@@ -81,12 +78,14 @@ function MyLocal() {
     try {
       const { message } = await api.put(`/locals/${local.id}`, data);
       await getLocal();
+      router.push('/')
     } catch (error) {}
   };
 
   const handleClickOpenAlert = async ({ id }) => {
     onOpen();
     setSelectedLocalDelete(id);
+
   };
 
   const handleClickDelete = async () => {
@@ -94,12 +93,13 @@ function MyLocal() {
       const { message } = await api.delete(`/locals/${selectedLocalDelete}`);
       await getLocal();
       onClose();
+      router.push('/')
     } catch (error) {}
   };
 
-  const handleClickMaps = () => {
-    onOpen();
-  };
+  // const handleClickMaps = () => {
+  //   onOpen();
+  // };
 
   useEffect(() => {
     getLocal();
@@ -115,7 +115,7 @@ function MyLocal() {
         data={dataAlert}
       />
 
-      <ModalMaps isOpen={isOpen} onClose={onClose} />
+      {/* <ModalMaps isOpen={isOpen} onClose={onClose} /> */}
 
       <CardHeader>
         <Flex justify={"space-between"} align={"center"}>
@@ -173,9 +173,9 @@ function MyLocal() {
             ))}
           </Select>
 
-          <Input label={"Comodidades"} isDisabled={true} variant="flushed" />
+          {/* <Input label={"Comodidades"} isDisabled={true} variant="flushed" /> */}
 
-          <Flex align={'center'}>
+          {/* <Flex align={'center'}>
             <Input
               label={"Latitude"}
               isDisabled={true}
@@ -201,7 +201,7 @@ function MyLocal() {
             >
               <MdOutlinePinDrop size={52}/>
             </Button>
-          </Flex>
+          </Flex> */}
 
           <Textarea
             my={4}

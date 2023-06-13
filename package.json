@@ -33,5 +33,9 @@
     "react-icons": "^4.8.0",
     "react-leaflet": "^4.2.1",
     "yup": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.12",
+    "typescript": "5.1.3"
   }
 }
