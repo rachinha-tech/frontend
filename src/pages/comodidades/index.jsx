@@ -21,12 +21,9 @@ import { MdOutlineArrowBack, MdOutlineSave } from "react-icons/md";
 import { api } from "../../services/api";
 import { Select } from "../../components/Forms/Select";
 
-const LocalFormSchema = yup.object({
-  modality_id: yup.number().required("Modalidade obrigatório"),
-  name: yup.string().required("Nome do local obrigatório"),
-  description: yup.string(),
-  // schu: yup.string(),
-  value_of_hour: yup.string().required("Valor do local obrigatório"),
+const ComodidadeFormSchema = yup.object({
+  local_id: yup.number().required("Local obrigatório"),
+  name: yup.string().required("Nome do comodidade obrigatório"),
 });
 
 function Criar() {
@@ -39,9 +36,9 @@ function Criar() {
     reset,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: yupResolver(LocalFormSchema),
+    resolver: yupResolver(ComodidadeFormSchema),
   });
-console.log(errors);
+
   const getModalities = async () => {
     try {
       const { data } = await api.get("/modalities");
@@ -50,11 +47,9 @@ console.log(errors);
     } catch (error) {}
   };
 
-  const handleLocalSubmit = async (dataFields) => {
+  const handleLocalSubmit = (data) => {
     try {
-      const { message } = await api.post("/locals", dataFields)
-
-      console.log(message);
+      console.log(data);
     } catch (error) {}
   };
 
