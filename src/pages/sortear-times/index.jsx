@@ -35,14 +35,7 @@ function OrganizarTimes() {
       <SimpleGrid columns={[2]} gap={4}>
         {modalities.map((modality) => (
           <Link
-            href={{
-              pathname: "/sortear-times/times",
-              query: {
-                id: modality.id,
-                name: modality.name,
-                quantity: modality.quantity_players,
-              },
-            }}
+            href={`/sortear-times/${modality.id}/sortear`}
             key={modality.id}
           >
             <Card maxW="sm">
