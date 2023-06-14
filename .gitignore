@@ -31,4 +31,7 @@ yarn-error.log*
 # vercel
 .vercel
 
+package-lock.json
+
+#configurações da IDE
 .idea

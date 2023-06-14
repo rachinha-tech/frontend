@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { parseCookies, setCookie } from "nookies";
+import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { useRouter } from "next/router";
 import { api } from "../services/api";
 
@@ -12,25 +12,6 @@ export function AuthProvider({ children }) {
   const { push, query } = router;
 
   const isAuthenticated = !!user;
-
-  const signIns = async ({ login, password }) => {
-    try {
-      const { data } = await api.post("/login", {
-        login: login,
-        password: password,
-      });
-
-      setCookie(undefined, "rachinha.token", data.token, {
-        path: "/",
-      });
-
-      setUser({ ...user });
-
-      api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const signIn = ({ login, password }) => {
     return new Promise(async (resolve, reject) => {
@@ -73,6 +54,35 @@ export function AuthProvider({ children }) {
     });
   };
 
+  const updateUser = async (id, dataForm) => {
+    try {
+      console.log(dataForm);
+      const { data, message } = await api.put(`/user/${id}`, dataForm);
+      // setUser({
+      //   ...user,
+      //   name: dataForm,
+      //   date_birth: dataForm.date_birth,
+      //   password: dataForm.password,
+      //   password_confirmation: dataForm.password_confirmation,
+      // });
+
+      return;
+    } catch (error) {}
+  };
+
+  const signOut = async () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        destroyCookie(undefined, "rachinha.token");
+
+        setUser(null);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
   useEffect(() => {
     const { "rachinha.token": token } = parseCookies();
 
@@ -82,7 +92,9 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, signIn, signOut, updateUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

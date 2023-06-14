@@ -7,12 +7,16 @@ import NProgress from "nprogress";
 NProgress.configure({ showSpinner: false });
 
 import "nprogress/nprogress.css";
-import "../../styles/nprogress.css";
+import "../styles/nprogress.css";
 
 import { useEffect } from "react";
 import { AuthProvider } from "../contexts/AuthContex";
 
 function MyApp({ Component, pageProps }) {
+  const CustomLayout = Component.layout || ((page) => page);
+
+  const Components = () => CustomLayout(<Component {...pageProps} />);
+
   useEffect(() => {
     const handleRouteStart = () => NProgress.start();
     const handleRouteDone = () => NProgress.done();
@@ -27,10 +31,6 @@ function MyApp({ Component, pageProps }) {
       Router.events.off("routeChangeError", handleRouteDone);
     };
   }, []);
-
-  const CustomLayout = Component.layout || ((page) => page);
-
-  const Components = () => CustomLayout(<Component {...pageProps} />);
 
   return (
     <ChakraProvider theme={theme}>

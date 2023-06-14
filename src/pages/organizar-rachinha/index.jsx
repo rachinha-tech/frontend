@@ -72,8 +72,11 @@ function OrganizarRachinha() {
       </Box>
       <SimpleGrid columns={[1]} gap={2}>
         {locals.map((local) => (
-          <Link href={"/organizar-times/times"} key={local.id}>
-            <Card maxW="sm">
+          <Link
+            href={`/organizar-rachinha/${local.id}/agenda`}
+            key={local.id}
+          >
+            <Card w="full">
               <CardBody>
                 <Stack spacing="4">
                   <Box>

@@ -34,7 +34,10 @@ function OrganizarTimes() {
     <Box mt="9">
       <SimpleGrid columns={[2]} gap={4}>
         {modalities.map((modality) => (
-          <Link href={"/organizar-times/times"} key={modality.id}>
+          <Link
+            href={`/sortear-times/${modality.id}/sortear`}
+            key={modality.id}
+          >
             <Card maxW="sm">
               <CardBody>
                 <Image
