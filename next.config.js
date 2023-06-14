@@ -1,12 +1,11 @@
-const withImages = require('next-images');
-const withPWA = require('next-pwa');
+const withOptimizedImages = require("next-optimized-images");
+const withPWA = require("next-pwa");
 
-module.exports = withImages(withPWA({
-  dest: 'public',
-  pwa: {
-    disable: process.env.NODE_ENV === 'development',
-  },
-   images: {
-    unoptimized: true,
-  },
-}));
+module.exports = withPWA(
+  withOptimizedImages({
+    dest: "public",
+    pwa: {
+      disable: process.env.NODE_ENV === "development",
+    },
+  })
+);
