@@ -10,6 +10,7 @@ import {
   FormLabel,
   Textarea,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
 import { IoMdInformationCircleOutline } from "react-icons/io";
@@ -42,6 +43,8 @@ function Criar() {
   const [modalities, setModalities] = useState([]);
   const router = useRouter();
 
+  const toast = useToast()
+
   const initialSchedule = {
     "hours_minutes": dayjs().format('HH:mm'),
   }
@@ -73,7 +76,10 @@ function Criar() {
     try {
       const { message } = await api.post("/locals", dataFields)
 
-      console.log(message);
+      toast({
+        description: message,
+        status: 'success',
+      })
     } catch (error) {}
   };
 
