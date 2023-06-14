@@ -133,6 +133,7 @@ function Times() {
             h="1.75rem"
             size="sm"
             onClick={addPerson}
+            colorScheme="blue"
             icon={<MdOutlinePersonAdd size="24px" />}
           />
         </InputRightElement>
@@ -194,6 +195,7 @@ function Times() {
                 </Heading>
                 <IconButton
                   size="sm"
+                  colorScheme="red"
                   icon={<MdOutlineClose size="24px" />}
                   onClick={() => delPerson(index)}
                 />
