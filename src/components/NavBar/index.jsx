@@ -33,7 +33,7 @@ function NavBar({ onOpenLogin, onOpenDonate }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user, isAuthenticated, signOut } = useContext(AuthContext);
   const router = useRouter();
-
+  console.log(user, isAuthenticated);
   return (
     <>
       {/* <ModalDonate isOpen={isOpen} onClose={onClose} /> */}
