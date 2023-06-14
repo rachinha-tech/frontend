@@ -76,7 +76,7 @@ function OrganizarRachinha() {
             href={`/organizar-rachinha/${local.id}/agenda`}
             key={local.id}
           >
-            <Card maxW="sm">
+            <Card w="full">
               <CardBody>
                 <Stack spacing="4">
                   <Box>

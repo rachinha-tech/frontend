@@ -14,6 +14,7 @@ import {
   Textarea,
   VStack,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
 import { IoMdInformationCircleOutline } from "react-icons/io";
@@ -47,6 +48,8 @@ function MyLocal() {
   const [modalities, setModalities] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
+
+  const toast = useToast()
 
   const {
     register,
@@ -88,6 +91,12 @@ function MyLocal() {
     try {
       const { message } = await api.put(`/locals/${local.id}`, data);
       await getLocal();
+
+      toast({
+        description: message,
+        status: 'success',
+      })
+      
       router.push("/");
     } catch (error) {}
   };

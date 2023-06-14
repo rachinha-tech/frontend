@@ -7,7 +7,7 @@ import NProgress from "nprogress";
 NProgress.configure({ showSpinner: false });
 
 import "nprogress/nprogress.css";
-import "../../styles/nprogress.css";
+import "../styles/nprogress.css";
 
 import { useEffect } from "react";
 import { AuthProvider } from "../contexts/AuthContex";
