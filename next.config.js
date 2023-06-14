@@ -3,6 +3,8 @@ const withPWA = require("next-pwa");
 
 module.exports = withPWA(
   withOptimizedImages({
-    dest: "public",
+    pwa: {
+      dest: 'public',
+    },
   })
 );
