@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
           path: "/",
         });
 
-        setUser({ ...user });
+        setUser({ ...data.user });
 
         api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
 
@@ -41,7 +41,7 @@ export function AuthProvider({ children }) {
       try {
         const { user, token } = await api.get("/user/profile");
 
-        setUser(user);
+        setUser({ ...user });
 
         setCookie(undefined, "rachinha.token", token, {
           path: "/",
@@ -67,7 +67,7 @@ export function AuthProvider({ children }) {
       // });
 
       return;
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const signOut = async () => {
