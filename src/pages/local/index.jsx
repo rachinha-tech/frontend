@@ -32,6 +32,7 @@ import * as yup from "yup";
 import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ModalMaps from "../../components/Modal/ModalMaps";
+import { LayoutTabs } from "../../components/Layout/LayoutTabs";
 
 const LocalFormSchema = yup.object({
   modality_id: yup.number().required("Modalidade obrigatório"),
@@ -49,7 +50,7 @@ function MyLocal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
 
-  const toast = useToast()
+  const toast = useToast();
 
   const {
     register,
@@ -94,9 +95,9 @@ function MyLocal() {
 
       toast({
         description: message,
-        status: 'success',
-      })
-      
+        status: "success",
+      });
+
       router.push("/");
     } catch (error) {}
   };
@@ -229,7 +230,9 @@ function MyLocal() {
           <Text w={"full"}>Agenda</Text>
 
           {schedule.map((el) => (
-            <Badge key={el.id} colorScheme="teal" w={"full"}>{el.hours_minutes}</Badge>
+            <Badge key={el.id} colorScheme="teal" w={"full"}>
+              {el.hours_minutes}
+            </Badge>
           ))}
         </Flex>
 
@@ -262,6 +265,19 @@ function MyLocal() {
   );
 }
 
-MyLocal.layout = (page) => <Layout>{page}</Layout>;
+MyLocal.layout = (page) => {
+  const tabs = [
+    { name: "Local", route: `/local` },
+    { name: "Comodidades", route: `/local/comodidades` },
+    { name: "Agenda", route: `/local/agenda` },
+    { name: "Financeiro", route: `/local/financeiro` },
+  ];
+
+  return (
+    <Layout>
+      <LayoutTabs tabs={tabs}>{page}</LayoutTabs>
+    </Layout>
+  );
+};
 
 export default MyLocal;

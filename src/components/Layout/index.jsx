@@ -1,5 +1,6 @@
 import { Box, Center, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 import NavBar from "../NavBar";
+import Sidebar from "../Drawer/Sidebar";
 
 export default function Layout({ children }) {
   const widthDisplay = useBreakpointValue({
@@ -19,7 +20,9 @@ export default function Layout({ children }) {
         </Center>
       ) : (
         <>
-          <Flex as={"header"} position="fixed" zIndex={1} w="full">
+          <Flex as={"header"} position="fixed" zIndex={1} w="full" justify={'space-between'} align={'center'} ml={2}>
+            <Sidebar />
+
             <NavBar />
           </Flex>
 

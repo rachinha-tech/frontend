@@ -9,49 +9,55 @@ import {
   ModalHeader,
   ModalOverlay,
   SimpleGrid,
+  Tab,
+  TabIndicator,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
   useDisclosure,
 } from "@chakra-ui/react";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContex";
 import { InputPassword } from "../Forms/InputPassword";
 import { Input } from "../Forms/Input";
 import { GiPadlock } from "react-icons/gi";
 import { BiUserCircle } from "react-icons/bi";
 import { BsBoxArrowInRight } from "react-icons/bs";
+import { useToastCustom } from "../../hooks/useToastCustom";
 
-const loginFormSchema = yup.object({
+const signInFormSchema = yup.object().shape({
   login: yup.string().required("Login obrigatório"),
-  password: yup
-    .string()
-    .required("Senha obrigatória")
-    .min(8, "No mínimo 8 caracteres"),
+  password: yup.string().required("Senha obrigatório"),
 });
 
-function Login({ isOpen, onClose }) {
+function SignIn({ isOpen, onClose }) {
   const { signIn } = useContext(AuthContext);
+  const {toast, toastWithError } = useToastCustom()
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: yupResolver(loginFormSchema),
+    resolver: yupResolver(signInFormSchema),
   });
 
-  const handleLogin = async (data) => {
+  const handleSignIn = async (data) => {
     try {
-      await signIn({
+      const {message} = await signIn({
         login: data.login,
         password: data.password,
       });
 
       onClose();
+      toast({title: message, status: "success"})
     } catch (error) {
-      console.log(error);
+      toastWithError(error);
     }
   };
 
@@ -67,14 +73,15 @@ function Login({ isOpen, onClose }) {
         <ModalOverlay />
 
         <ModalContent>
-          <ModalHeader>Acessar</ModalHeader>
+          <ModalHeader>Login</ModalHeader>
           <ModalCloseButton />
+
           <ModalBody>
             <SimpleGrid
               columns={[1]}
               gap={9}
               as="form"
-              onSubmit={handleSubmit(handleLogin)}
+              onSubmit={handleSubmit(handleSignIn)}
             >
               <Input
                 label="Login"
@@ -107,22 +114,21 @@ function Login({ isOpen, onClose }) {
               </Flex>
             </SimpleGrid>
           </ModalBody>
-          <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
     </>
   );
 }
 
-const withModalLogin = (Component) => (props) => {
+const withModalSignIn = (Component) => (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
-      <Login isOpen={isOpen} onClose={onClose} />
-      <Component onOpenLogin={onOpen} {...props} />
+      <SignIn isOpen={isOpen} onClose={onClose} />
+      <Component onOpenSignIn={onOpen} {...props} />
     </>
   );
 };
 
-export default withModalLogin;
+export default withModalSignIn;
