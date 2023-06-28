@@ -13,12 +13,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import {
-  MdCall,
-  MdEmail,
-  MdWhatsapp,
-} from "react-icons/md";
-
+import { MdCall, MdEmail, MdWhatsapp } from "react-icons/md";
 
 function index() {
   return (
@@ -55,10 +50,10 @@ function index() {
         <CardBody>
           <Text>
             Somos uma plataforma dedicada a facilitar a organização de
-            "amistosos" e tornar a experiência de encontrar jogos e montar times
-            mais simples e divertida. Combinamos funcionalidades únicas e
-            intuitivas para ajudar você a aproveitar ao máximo seus momentos
-            esportivos.
+            &quot;amistosos&quot; e tornar a experiência de encontrar jogos e
+            montar times mais simples e divertida. Combinamos funcionalidades
+            únicas e intuitivas para ajudar você a aproveitar ao máximo seus
+            momentos esportivos.
           </Text>
         </CardBody>
       </Card>
