@@ -36,6 +36,27 @@ export function AuthProvider({ children }) {
     });
   };
 
+  const signUp = (dataForm) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await api.post("/register", {
+          email: dataForm.email,
+          login: dataForm.login,
+          date_birth: dataForm.date_birth,
+          name: dataForm.name,
+          level: dataForm.level,
+          password: dataForm.password,
+          password_confirmation: dataForm.password_confirmation,
+        });
+
+        console.log(response);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
   const getUser = async () => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -67,7 +88,7 @@ export function AuthProvider({ children }) {
       // });
 
       return;
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const signOut = async () => {
@@ -93,7 +114,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, signIn, signOut, updateUser }}
+      value={{ user, isAuthenticated, signIn, signOut, updateUser, signUp }}
     >
       {children}
     </AuthContext.Provider>

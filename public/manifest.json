@@ -4,8 +4,8 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Rachinha Tech PWA",
-    "short_name": "Rachinha Tech PWA",
+    "name": "Rachinha PWA",
+    "short_name": "Rachinha PWA",
     "description": "PWA para agendamento de rachinhas e sorteio de times ",
     "icons": [
         {
