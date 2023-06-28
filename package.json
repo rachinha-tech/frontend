@@ -1,15 +1,14 @@
 {
   "name": "rachinha",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A PWA application to manage matchs in amateur sports",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
-  "author": "",
+  "author": "Rachinha Team",
   "license": "ISC",
   "dependencies": {
     "@chakra-ui/icons": "^2.0.19",
@@ -38,6 +37,8 @@
   },
   "devDependencies": {
     "@types/react": "18.2.12",
+    "eslint": "8.43.0",
+    "eslint-config-next": "13.4.7",
     "typescript": "5.1.3"
   }
 }
