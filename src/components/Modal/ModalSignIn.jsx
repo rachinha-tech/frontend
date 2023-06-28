@@ -120,6 +120,7 @@ function SignIn({ isOpen, onClose }) {
   );
 }
 
+// eslint-disable-next-line react/display-name
 const withModalSignIn = (Component) => (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 

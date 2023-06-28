@@ -158,6 +158,7 @@ function SignUp({ isOpen, onClose }) {
   );
 }
 
+// eslint-disable-next-line react/display-name
 const withModalSignUp = (Component) => (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 

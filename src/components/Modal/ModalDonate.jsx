@@ -23,7 +23,6 @@ const donateFormSchema = yup.object({
 });
 
 function ModalDonate({ isOpen, onClose }) {
-
   const {
     register,
     handleSubmit,
@@ -92,6 +91,7 @@ function ModalDonate({ isOpen, onClose }) {
   );
 }
 
+// eslint-disable-next-line react/display-name
 const withModalDonate = (Component) => (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
