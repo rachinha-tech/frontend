@@ -12,20 +12,19 @@ import {
   VStack,
   useToast,
 } from "@chakra-ui/react";
-import Layout from "../../components/Layout";
-import { IoMdInformationCircleOutline } from "react-icons/io";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 import { Input } from "../../components/Forms/Input";
-import { AuthContext } from "../../contexts/AuthContex";
+import Layout from "../../components/Layout";
 
-import * as yup from "yup";
-import { useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { MdOutlineArrowBack, MdOutlineSave } from "react-icons/md";
-import { api } from "../../services/api";
-import { Select } from "../../components/Forms/Select";
 import dayjs from "dayjs";
+import { useFieldArray, useForm } from "react-hook-form";
+import { MdOutlineArrowBack, MdOutlineSave } from "react-icons/md";
+import * as yup from "yup";
+import { Select } from "../../components/Forms/Select";
+import { api } from "../../services/api";
 
 const LocalFormSchema = yup.object({
   modality_id: yup.number().required("Modalidade obrigatório"),
@@ -33,8 +32,8 @@ const LocalFormSchema = yup.object({
   description: yup.string(),
   schedule: yup.array().of(
     yup.object({
-      hours_minutes: yup.string()
-    })
+      hours_minutes: yup.string(),
+    }),
   ),
   value_of_hour: yup.string().required("Valor do local obrigatório"),
 });
@@ -43,11 +42,11 @@ function Criar() {
   const [modalities, setModalities] = useState([]);
   const router = useRouter();
 
-  const toast = useToast()
+  const toast = useToast();
 
   const initialSchedule = {
-    "hours_minutes": dayjs().format('HH:mm'),
-  }
+    hours_minutes: dayjs().format("HH:mm"),
+  };
 
   const {
     register,
@@ -74,12 +73,12 @@ function Criar() {
 
   const handleLocalSubmit = async (dataFields) => {
     try {
-      const { message } = await api.post("/locals", dataFields)
+      const { message } = await api.post("/locals", dataFields);
 
       toast({
         description: message,
-        status: 'success',
-      })
+        status: "success",
+      });
     } catch (error) {}
   };
 
@@ -119,34 +118,37 @@ function Criar() {
           />
         </VStack>
 
-        {
-            fields.map((field, index) =>
-              <Box w="full" key={index}>
-                  <FormControl gap={["6", "8"]}>
-                    <FormLabel>Horário</FormLabel>
-                    <Input type="time" {...register(`schedule[${index}].hours_minutes`)} />
-                  </FormControl>
+        {fields.map((field, index) => (
+          <Box w="full" key={index}>
+            <FormControl gap={["6", "8"]}>
+              <FormLabel>Horário</FormLabel>
+              <Input
+                type="time"
+                {...register(`schedule[${index}].hours_minutes`)}
+              />
+            </FormControl>
 
-                <Flex justifyContent="start" w="full" gap={"2"}>
-                  <Button
-                    size="sm"
-                    colorScheme="red"
-                    onClick={() => remove(index)}
-                  >
-                    Remover
-                  </Button>
-                </Flex>
+            <Flex justifyContent="start" w="full" gap={"2"}>
+              <Button size="sm" colorScheme="red" onClick={() => remove(index)}>
+                Remover
+              </Button>
+            </Flex>
 
-                <Box bg="gray.800">
-                  <Divider my="2" />
-                </Box>
-              </Box>
-            )
-          }
+            <Box bg="gray.800">
+              <Divider my="2" />
+            </Box>
+          </Box>
+        ))}
 
-          <Flex justifyContent="start" w="full" mb={"8"}>
-            <Button colorScheme="teal" size={'sm'} onClick={() => append(initialSchedule)}>Adicionar Horário</Button>
-          </Flex>
+        <Flex justifyContent="start" w="full" mb={"8"}>
+          <Button
+            colorScheme="teal"
+            size={"sm"}
+            onClick={() => append(initialSchedule)}
+          >
+            Adicionar Horário
+          </Button>
+        </Flex>
 
         <Flex justifyContent={"flex-end"} gap={4}>
           <Button

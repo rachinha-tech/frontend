@@ -1,15 +1,15 @@
 import {
   Card,
   CardBody,
-  Heading,
   Flex,
-  Text,
+  Heading,
   Image,
   Stack,
+  Text,
 } from "@chakra-ui/react";
 
-import { MdOutlineGroups2 } from "react-icons/md";
 import Link from "next/link";
+import { MdOutlineGroups2 } from "react-icons/md";
 
 export default function BoxCard({ src, title, rule, modality }) {
   console.log(modality);

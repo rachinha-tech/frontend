@@ -12,9 +12,9 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
 import { api } from "../../services/api";
 
 const quantityFormSchema = yup.object({

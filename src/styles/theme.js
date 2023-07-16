@@ -6,8 +6,8 @@ export const theme = extendTheme({
     // pink: '#f73eb9',
     // turquoise: '#4d8bec',
     blue: {
-      900: "#2A4359"
-    }
+      900: "#2A4359",
+    },
   },
   components: {
     Alert: {

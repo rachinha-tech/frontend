@@ -10,10 +10,10 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 
-import Map from "../Maps";
-import { Input } from "../Forms/Input";
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
+import { Input } from "../Forms/Input";
+import Map from "../Maps";
 
 function ModalMaps({ isOpen, onClose }) {
   const [coordenadas, setCoordenadas] = useState({ latitude: 0, longitude: 0 });
@@ -22,8 +22,8 @@ function ModalMaps({ isOpen, onClose }) {
   const handleSearchLocal = async () => {
     const { data } = await axios.get(
       `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
-        search
-      )}&key=3f6c4809b288410c96c79a98f4afcdf9`
+        search,
+      )}&key=3f6c4809b288410c96c79a98f4afcdf9`,
     );
 
     const coord = data?.results[0].geometry;
@@ -73,10 +73,7 @@ function ModalMaps({ isOpen, onClose }) {
           </ModalBody>
 
           <ModalFooter>
-            <Button
-              size="sm"
-              colorScheme="green"
-            >
+            <Button size="sm" colorScheme="green">
               Salvar
             </Button>
           </ModalFooter>

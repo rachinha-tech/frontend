@@ -16,22 +16,22 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { useContext } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { BsDoorOpen } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
-import withModalSignIn from "../Modal/ModalSignIn";
-import withModalSignUp from "../Modal/ModalSiginUp";
-import { AuthContext } from "../../contexts/AuthContex";
-import { useContext } from "react";
 import {
   MdOutlineBuild,
   MdOutlineGroup,
   MdOutlinePersonPinCircle,
+  MdOutlineSearch,
   MdOutlineTimer,
-  MdOutlineSearch
 } from "react-icons/md";
-import NavLink from "../NavLink";
 import { SlLocationPin } from "react-icons/sl";
+import { AuthContext } from "../../contexts/AuthContex";
+import withModalSignUp from "../Modal/ModalSiginUp";
+import withModalSignIn from "../Modal/ModalSignIn";
+import NavLink from "../NavLink";
 
 function Sidebar({ onOpenSignIn, onOpenSignUp }) {
   const { isOpen, onOpen, onClose } = useDisclosure();

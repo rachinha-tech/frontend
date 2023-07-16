@@ -1,8 +1,14 @@
 import { Button } from "@chakra-ui/react";
-import React from "react";
 import Link from "next/link";
+import React from "react";
 
-export default function NavButton({ title, icon, disabled = null, color = "blue.900", href }) {
+export default function NavButton({
+  title,
+  icon,
+  disabled = null,
+  color = "blue.900",
+  href,
+}) {
   return (
     <Link href={href} passHref>
       <Button

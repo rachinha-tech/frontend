@@ -31,7 +31,6 @@ function TeamsSorted({ isOpen, onClose, teams }) {
           <ModalHeader>Times sorteados</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-
             <Card w="full" variant="outline">
               <CardBody>
                 {teams?.map((teams, index) => (
@@ -59,7 +58,6 @@ function TeamsSorted({ isOpen, onClose, teams }) {
                 ))}
               </CardBody>
             </Card>
-
           </ModalBody>
           <ModalFooter>
             <Button w="full" colorScheme="red" onClick={onClose}>

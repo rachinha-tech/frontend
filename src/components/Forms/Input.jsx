@@ -9,7 +9,7 @@ import { forwardRef } from "react";
 
 function InputBase(
   { name, label, icon = null, error = null, size, type = "text", ...rest },
-  ref
+  ref,
 ) {
   return (
     <FormControl>
