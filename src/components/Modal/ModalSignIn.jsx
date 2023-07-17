@@ -47,8 +47,8 @@ function SignIn({ isOpen, onClose }) {
         password: data.password,
       });
 
-      onClose();
-      toast({ title: message, status: "success" });
+      await onClose();
+      toast({title: message, status: "success"})
     } catch (error) {
       toastWithError(error);
     }
