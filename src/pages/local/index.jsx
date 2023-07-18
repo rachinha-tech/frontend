@@ -1,37 +1,31 @@
 import {
   Badge,
-  Box,
   Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   Flex,
-  FormControl,
-  FormLabel,
-  HStack,
   Text,
   Textarea,
-  VStack,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import Layout from "../../components/Layout";
-import { IoMdInformationCircleOutline } from "react-icons/io";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { Alert } from "../../components/Alert";
-import { api } from "../../services/api";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { BiTrash } from "react-icons/bi";
+import { IoMdInformationCircleOutline } from "react-icons/io";
+import { MdOutlineSave } from "react-icons/md";
+import { Alert } from "../../components/Alert";
 import { Input } from "../../components/Forms/Input";
 import { Select } from "../../components/Forms/Select";
-import { MdOutlinePinDrop, MdOutlineSave } from "react-icons/md";
+import Layout from "../../components/Layout";
+import { api } from "../../services/api";
 
-import * as yup from "yup";
-import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import ModalMaps from "../../components/Modal/ModalMaps";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
 import { LayoutTabs } from "../../components/Layout/LayoutTabs";
 
 const LocalFormSchema = yup.object({

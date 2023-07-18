@@ -12,14 +12,14 @@ import {
 import { useRef, useState } from "react";
 
 export function Alert({ isOpen, onClose, onClick, data }) {
-  const [ isLoading, setLoading ] = useState(false)
+  const [isLoading, setLoading] = useState(false);
   const cancelRef = useRef();
 
   const handleOnClick = async () => {
-    setLoading(true)
-    await onClick()
-    setLoading(false)
-  }
+    setLoading(true);
+    await onClick();
+    setLoading(false);
+  };
 
   return (
     <AlertDialog

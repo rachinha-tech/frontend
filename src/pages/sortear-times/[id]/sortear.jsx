@@ -20,28 +20,27 @@ import {
   VStack,
   useDisclosure,
 } from "@chakra-ui/react";
-import Layout from "../../../components/Layout";
-import {
-  MdOutlineClose,
-  MdOutlinePersonAdd,
-} from "react-icons/md";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { api } from "../../../services/api";
+import { useEffect, useState } from "react";
+import { MdOutlineClose, MdOutlinePersonAdd } from "react-icons/md";
+import Layout from "../../../components/Layout";
 import TeamsSorted from "../../../components/Modal/TeamsSorted";
+import { api } from "../../../services/api";
 
-import * as yup from "yup";
-import { useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useFieldArray, useForm } from "react-hook-form";
+import * as yup from "yup";
 
 const scheme = yup.object({
-  players: yup.array().of(yup.string().transform(value => {
-    if (value) {
-      return value.name
-    }
+  players: yup.array().of(
+    yup.string().transform((value) => {
+      if (value) {
+        return value.name;
+      }
 
-    return value
-  })),
+      return value;
+    }),
+  ),
   quantity_players: yup.number(),
   quantity_teams: yup.number(),
 });
@@ -49,11 +48,21 @@ const scheme = yup.object({
 function Times() {
   const [credentials, setCrendentials] = useState({});
   const [modalidade, setModalidade] = useState({});
-  const [teams, setTeams] = useState([])
+  const [teams, setTeams] = useState([]);
 
-  const { isOpen: isOpenSorted, onOpen: onOpenSorted, onClose: onCloseSorted } = useDisclosure();
+  const {
+    isOpen: isOpenSorted,
+    onOpen: onOpenSorted,
+    onClose: onCloseSorted,
+  } = useDisclosure();
 
-  const { register, watch, handleSubmit, control, formState: { isSubmitting, errors } } = useForm({
+  const {
+    register,
+    watch,
+    handleSubmit,
+    control,
+    formState: { isSubmitting, errors },
+  } = useForm({
     resolver: yupResolver(scheme),
   });
 
@@ -72,12 +81,12 @@ function Times() {
   };
 
   const addPerson = () => {
-    append(credentials)
+    append(credentials);
     setCrendentials({});
   };
 
   const delPerson = (index) => {
-    remove(index)
+    remove(index);
   };
 
   const router = useRouter();
@@ -85,30 +94,33 @@ function Times() {
 
   const getModality = async () => {
     try {
-      const { data } = await api.get(`modalities/${id}`)
-      setModalidade(data)
-    } catch (error) {
-
-    }
-  }
+      const { data } = await api.get(`modalities/${id}`);
+      setModalidade(data);
+    } catch (error) {}
+  };
 
   const handleSubmitSorted = async (dataFilds) => {
     try {
       console.log(dataFilds);
       const { data } = await api.post("/teams-draw", dataFilds);
-      await setTeams(data)
-      onOpenSorted()
-    } catch (error) { }
-  }
+      await setTeams(data);
+      onOpenSorted();
+    } catch (error) {}
+  };
 
   useEffect(() => {
     if (id) {
-      getModality()
+      getModality();
     }
   }, [id]);
 
   return (
-    <VStack mt="9" spacing="4" as="form" onSubmit={handleSubmit(handleSubmitSorted)}>
+    <VStack
+      mt="9"
+      spacing="4"
+      as="form"
+      onSubmit={handleSubmit(handleSubmitSorted)}
+    >
       <TeamsSorted
         isOpen={isOpenSorted}
         onClose={onCloseSorted}
@@ -139,37 +151,33 @@ function Times() {
         </InputRightElement>
       </InputGroup>
 
-      <SimpleGrid columns={[2]} w='full' gap="2">
+      <SimpleGrid columns={[2]} w="full" gap="2">
         <FormControl>
-          <FormLabel mb="0">
-            Qtd Times
-          </FormLabel>
+          <FormLabel mb="0">Qtd Times</FormLabel>
           <Select
-            {...register('quantity_teams')}
+            {...register("quantity_teams")}
             defaultChecked={[0]}
             bgColor="white"
           >
-            {
-              Array.from({ length: 99 }).map((_, index) =>
-                <option key={index} value={index + 1}>{index + 1}</option>
-              )
-            }
+            {Array.from({ length: 99 }).map((_, index) => (
+              <option key={index} value={index + 1}>
+                {index + 1}
+              </option>
+            ))}
           </Select>
         </FormControl>
         <FormControl>
-          <FormLabel mb="0">
-            Qtd Jogadores
-          </FormLabel>
+          <FormLabel mb="0">Qtd Jogadores</FormLabel>
           <Select
-            {...register('quantity_players')}
+            {...register("quantity_players")}
             defaultChecked={[0]}
             bgColor="white"
           >
-            {
-              Array.from({ length: 99 }).map((_, index) =>
-                <option key={index} value={index + 1}>{index + 1}</option>
-              )
-            }
+            {Array.from({ length: 99 }).map((_, index) => (
+              <option key={index} value={index + 1}>
+                {index + 1}
+              </option>
+            ))}
           </Select>
         </FormControl>
       </SimpleGrid>

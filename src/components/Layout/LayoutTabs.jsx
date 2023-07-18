@@ -1,7 +1,6 @@
 import { Container, Tab, TabList, Tabs } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ReactNode } from "react";
 
 export function LayoutTabs({ children, tabs }) {
   const router = useRouter();

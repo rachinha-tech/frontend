@@ -1,5 +1,3 @@
-import React from "react";
-import Layout from "../components/Layout";
 import {
   Button,
   Card,
@@ -12,6 +10,8 @@ import {
   UnorderedList,
   VStack,
 } from "@chakra-ui/react";
+import React from "react";
+import Layout from "../components/Layout";
 
 import { MdCall, MdEmail, MdWhatsapp } from "react-icons/md";
 

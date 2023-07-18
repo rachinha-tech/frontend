@@ -15,14 +15,14 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContex";
-import { InputPassword } from "../Forms/InputPassword";
-import { Input } from "../Forms/Input";
+import { useForm } from "react-hook-form";
 import { BsBoxArrowInRight } from "react-icons/bs";
+import * as yup from "yup";
+import { AuthContext } from "../../contexts/AuthContex";
+import { Input } from "../Forms/Input";
+import { InputPassword } from "../Forms/InputPassword";
 
 const signUpFormSchema = yup.object().shape({
   name: yup.string().required("Nome obrigatório"),

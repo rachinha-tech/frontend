@@ -1,36 +1,6 @@
-import {
-  Box,
-  Flex,
-  Text,
-  IconButton,
-  Button,
-  Stack,
-  Collapse,
-  Icon,
-  useColorModeValue,
-  useDisclosure,
-  Avatar,
-  Menu,
-  MenuItem,
-  MenuButton,
-  MenuList,
-  MenuDivider,
-  HStack,
-} from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { Button, Flex, useColorModeValue } from "@chakra-ui/react";
 import Logo from "../../components/Logo";
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContex";
-import withModalSignIn from "../Modal/ModalSignIn";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { BiUserCircle } from "react-icons/bi";
-import { BsDoorOpen } from "react-icons/bs";
-import { MdLocalBar, MdOutlineCalendarMonth } from "react-icons/md";
-import { SlLocationPin } from "react-icons/sl";
 import ModalDonate from "../Modal/ModalDonate";
-import withModalSignUp from "../Modal/ModalSiginUp";
-import Sidebar from "../Drawer/Sidebar";
 
 function NavBar({ onOpenDonate }) {
   return (

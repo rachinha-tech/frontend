@@ -8,14 +8,13 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { RxEyeClosed } from "react-icons/rx";
+import { forwardRef, useState } from "react";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { forwardRef } from "react";
+import { RxEyeClosed } from "react-icons/rx";
 
 function InputBase(
   { label, name, size = "sm", icon = null, error = null, ...rest },
-  ref
+  ref,
 ) {
   const [show, setShow] = useState(false);
   return (

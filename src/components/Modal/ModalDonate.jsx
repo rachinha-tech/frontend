@@ -11,12 +11,12 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Input } from "../Forms/Input";
+import { useForm } from "react-hook-form";
 import { AiOutlineDollar } from "react-icons/ai";
-import { BsBoxArrowInRight, BsSend } from "react-icons/bs";
+import { BsSend } from "react-icons/bs";
+import * as yup from "yup";
+import { Input } from "../Forms/Input";
 
 const donateFormSchema = yup.object({
   valor: yup.string(),

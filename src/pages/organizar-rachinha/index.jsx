@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   Box,
   Card,
@@ -7,7 +6,6 @@ import {
   Flex,
   Heading,
   IconButton,
-  Image,
   Input,
   InputGroup,
   InputRightElement,
@@ -16,6 +14,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import {
   MdOutlineGroups2,
   MdOutlineSearch,
@@ -72,10 +71,7 @@ function OrganizarRachinha() {
       </Box>
       <SimpleGrid columns={[1]} gap={2}>
         {locals.map((local) => (
-          <Link
-            href={`/organizar-rachinha/${local.id}/agenda`}
-            key={local.id}
-          >
+          <Link href={`/organizar-rachinha/${local.id}/agenda`} key={local.id}>
             <Card w="full">
               <CardBody>
                 <Stack spacing="4">

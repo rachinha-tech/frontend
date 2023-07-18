@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   Box,
   Card,
@@ -11,6 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import { MdOutlineGroups2 } from "react-icons/md";
 import Layout from "../../components/Layout";
 import { api } from "../../services/api";

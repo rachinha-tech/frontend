@@ -5,30 +5,23 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   SimpleGrid,
-  Tab,
-  TabIndicator,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
   useDisclosure,
 } from "@chakra-ui/react";
 
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../contexts/AuthContex";
-import { InputPassword } from "../Forms/InputPassword";
-import { Input } from "../Forms/Input";
-import { GiPadlock } from "react-icons/gi";
+import { useContext } from "react";
+import { useForm } from "react-hook-form";
 import { BiUserCircle } from "react-icons/bi";
 import { BsBoxArrowInRight } from "react-icons/bs";
+import { GiPadlock } from "react-icons/gi";
+import * as yup from "yup";
+import { AuthContext } from "../../contexts/AuthContex";
 import { useToastCustom } from "../../hooks/useToastCustom";
+import { Input } from "../Forms/Input";
+import { InputPassword } from "../Forms/InputPassword";
 
 const signInFormSchema = yup.object().shape({
   login: yup.string().required("Login obrigatório"),
@@ -37,7 +30,7 @@ const signInFormSchema = yup.object().shape({
 
 function SignIn({ isOpen, onClose }) {
   const { signIn } = useContext(AuthContext);
-  const {toast, toastWithError } = useToastCustom()
+  const { toast, toastWithError } = useToastCustom();
 
   const {
     register,
@@ -49,7 +42,7 @@ function SignIn({ isOpen, onClose }) {
 
   const handleSignIn = async (data) => {
     try {
-      const {message} = await signIn({
+      const { message } = await signIn({
         login: data.login,
         password: data.password,
       });

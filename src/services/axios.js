@@ -14,7 +14,7 @@ export function getAPIClient(ctx) {
     },
     (error) => {
       return Promise.reject(error);
-    }
+    },
   );
 
   if (token) {

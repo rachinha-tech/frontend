@@ -1,7 +1,7 @@
 import {
+  Select as ChakraSelect,
   FormControl,
   FormLabel,
-  Select as ChakraSelect,
 } from "@chakra-ui/react";
 import { forwardRef } from "react";
 

@@ -1,6 +1,6 @@
 import { Button, Divider } from "@chakra-ui/react";
-import React from "react";
 import Link from "next/link";
+import React from "react";
 
 export default function NavLink({ title, icon, disabled = null, href }) {
   return (
@@ -8,7 +8,7 @@ export default function NavLink({ title, icon, disabled = null, href }) {
       <Link href={href} passHref>
         <Button
           color="black"
-          fontWeight={'thin'}
+          fontWeight={"thin"}
           size="lg"
           variant={"link"}
           leftIcon={icon}
