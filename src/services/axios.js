@@ -3,7 +3,7 @@ import { parseCookies } from "nookies";
 
 export function getAPIClient(ctx) {
   const { "rachinha.token": token } = parseCookies(ctx);
-  console.log(token);
+  console.log(process.env.NEXT_PUBLIC_API_URL);
   const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL,
   });
