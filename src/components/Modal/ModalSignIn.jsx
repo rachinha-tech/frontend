@@ -48,7 +48,7 @@ function SignIn({ isOpen, onClose }) {
       });
 
       await onClose();
-      toast({title: message, status: "success"})
+      toast({ title: message, status: "success" });
     } catch (error) {
       toastWithError(error);
     }
