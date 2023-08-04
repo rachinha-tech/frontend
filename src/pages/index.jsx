@@ -9,8 +9,10 @@ import {
   Text,
   UnorderedList,
   VStack,
+  Flex,
 } from "@chakra-ui/react";
 import React from "react";
+
 import Layout from "../components/Layout";
 
 import { MdCall, MdEmail, MdWhatsapp } from "react-icons/md";
@@ -138,6 +140,12 @@ function index() {
           </HStack>
         </CardBody>
       </Card>
+
+      <Flex as={"footer"} justify={"center"} padding={2}>
+        <Text fontSize={"xs"} fontWeight={"semibold"} color={"blue.800"}>
+          &copy; Desenvolvido por Rachinha Tech | 2023
+        </Text>
+      </Flex>
     </VStack>
   );
 }
