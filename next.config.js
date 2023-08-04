@@ -1,18 +1,14 @@
-const withPWA = require("next-pwa");
-const withOptimizedImages = require("next-images");
-
-const nextConfig = withOptimizedImages({
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
   images: {
     unoptimized: true,
   },
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.optimization.splitChunks.cacheGroups = {
-        default: false,
-      };
-    }
-    return config;
-  },
+};
+
+const withPWA = require("@ducanh2912/next-pwa").default({
+  dest: "public",
 });
 
-module.exports = nextConfig;
+module.exports =
+  process.env.NODE_ENV === "development" ? nextConfig : withPWA(nextConfig);
