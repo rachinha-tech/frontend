@@ -1,32 +1,25 @@
-import { Button, Flex, useColorModeValue } from "@chakra-ui/react";
-import Logo from "../../components/Logo";
+import { Button, Flex } from "@chakra-ui/react";
 import ModalDonate from "../Modal/ModalDonate";
+import Link from "next/link";
+import Image from "next/image";
 
 function NavBar({ onOpenDonate }) {
   return (
-    <>
-      <Flex
-        w="full"
-        bg={useColorModeValue("#DFE9F2", "gray.800")}
-        color={useColorModeValue("gray.600", "#DFE9F2")}
-        minH={"60px"}
-        py={{ base: 2 }}
-        px={{ base: 4 }}
-        borderBottom={1}
-        borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
-        align={"center"}
-        justifyContent={"space-between"}
-      >
-        <Logo />
+    <Flex width="100%" justifyContent={"space-evenly"} alignItems={"center"}>
+      <Link href={"/"}>
+        <Image
+          objectFit="cover"
+          src="/logo.png"
+          width={216}
+          height={48}
+          alt=""
+        />
+      </Link>
 
-        <Flex align={"center"}>
-          <Button size={"xs"} colorScheme="pink" onClick={onOpenDonate}>
-            Donate
-          </Button>
-        </Flex>
-      </Flex>
-    </>
+      <Button size={"xs"} colorScheme="pink" onClick={onOpenDonate}>
+        Donate
+      </Button>
+    </Flex>
   );
 }
 
