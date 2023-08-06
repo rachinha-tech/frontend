@@ -5,13 +5,12 @@ import NavBar from "../NavBar";
 export default function Layout({ children }) {
   return (
     <Flex display={"flex"} flexDirection={"column"} h={"100vh"}>
-      <Flex as={"header"} width={"full"}>
+      <Flex>
         <Sidebar />
         <NavBar />
       </Flex>
 
       <Box
-        as={"main"}
         overflow={"scroll"}
         p={4}
         css={{
