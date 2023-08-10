@@ -12,7 +12,6 @@ import {
   IconButton,
   Stack,
   VStack,
-  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
@@ -39,16 +38,10 @@ function Sidebar({ onOpenSignIn, onOpenSignUp }) {
   const router = useRouter();
 
   return (
-    <Flex
-      minH={"60px"}
-      py={{ base: 2 }}
-      bg={useColorModeValue("#DFE9F2", "gray.800")}
-      color={useColorModeValue("gray.600", "#DFE9F2")}
-    >
+    <Flex alignItems={"center"}>
       <IconButton
-        colorScheme="transparent"
         onClick={onOpen}
-        icon={<GiHamburgerMenu color="black" size={22} />}
+        icon={<GiHamburgerMenu color="black" size={24} />}
       />
 
       <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
@@ -100,7 +93,7 @@ function Sidebar({ onOpenSignIn, onOpenSignUp }) {
           </DrawerHeader>
 
           <DrawerBody>
-            <VStack align={"flex-start"}>
+            <VStack align={"flex-start"} spacing={4}>
               {isAuthenticated && (
                 <>
                   <NavLink

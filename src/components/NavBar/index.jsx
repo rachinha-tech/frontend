@@ -11,7 +11,7 @@ function NavBar({ onOpenDonate }) {
           objectFit="cover"
           src="/logo.png"
           width={216}
-          height={48}
+          height={44}
           alt=""
         />
       </Link>
