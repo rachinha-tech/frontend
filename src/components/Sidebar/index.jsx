@@ -19,13 +19,7 @@ import { useContext } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { BsDoorOpen } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
-import {
-  MdOutlineBuild,
-  MdOutlineGroup,
-  MdOutlinePersonPinCircle,
-  MdOutlineSearch,
-  MdOutlineTimer,
-} from "react-icons/md";
+import { MdOutlineGroup, MdOutlineTimer } from "react-icons/md";
 import { SlLocationPin } from "react-icons/sl";
 import { AuthContext } from "../../contexts/AuthContex";
 import withModalSignUp from "../Modal/ModalSiginUp";
@@ -127,27 +121,6 @@ function Sidebar({ onOpenSignIn, onOpenSignUp }) {
                 title="Temporizador"
                 icon={<MdOutlineTimer size={24} />}
                 href="/temporizador"
-              />
-
-              <NavLink
-                title="Organizar Rachinha"
-                icon={<MdOutlineBuild size={24} />}
-                href="/organizar-rachinha"
-                disabled={isAuthenticated ? false : true}
-              />
-
-              <NavLink
-                title="Buscar Rachinha"
-                icon={<MdOutlineSearch size={24} />}
-                href="/organizar-rachinha"
-                disabled={isAuthenticated ? false : true}
-              />
-
-              <NavLink
-                title="Buscar Jogador"
-                icon={<MdOutlinePersonPinCircle size={24} />}
-                href="/organizar-rachinha"
-                disabled={isAuthenticated ? false : true}
               />
             </VStack>
           </DrawerBody>
