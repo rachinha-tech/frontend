@@ -1,9 +1,9 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { theme } from "../styles/theme";
 
 import { AuthProvider } from "../contexts/AuthContex";
+import { theme } from "../styles/theme";
 
-function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
   const CustomLayout = Component.layout || ((page) => page);
 
   const Components = () => CustomLayout(<Component {...pageProps} />);
@@ -16,5 +16,3 @@ function MyApp({ Component, pageProps }) {
     </ChakraProvider>
   );
 }
-
-export default MyApp;
